@@ -1,13 +1,13 @@
-<!-- Vienna / Seoul winter itinerary — December 2026 -->
+<!-- Viena / Seúl — invierno 2026 · listado de lugares -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Two Cities, One Winter — Vienna &amp; Seoul</title>
+<title>Dos ciudades, un invierno — Viena y Seúl</title>
 
-<!-- iOS "Add to Home Screen" app mode -->
+<!-- iOS "Añadir a pantalla de inicio" -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vienna·Seoul">
+<meta name="apple-mobile-web-app-title" content="Viena·Seúl">
 <meta name="theme-color" content="#1E3D2B">
 <link rel="apple-touch-icon" href="icon.png">
 
@@ -15,251 +15,229 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.31.0/tabler-icons.min.css">
 
 <style>
   :root{
     --display:'Fraunces',Georgia,'Times New Roman',serif;
     --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
-
     --paper:#FBF8F2;
 
-    /* Vienna — imperial green, Habsburg gold, snow cream */
-    --v-ink:#15281C;
-    --v-green:#1E3D2B;
-    --v-green-2:#27513A;
-    --v-gold:#A67C2E;
-    --v-gold-soft:#D7BD7C;
-    --v-cream:#F5EFE2;
-    --v-cream-2:#EAE0CB;
-    --v-line:#D8CBAC;
+    --v-ink:#15281C; --v-green:#1E3D2B; --v-green-2:#27513A;
+    --v-gold:#A67C2E; --v-gold-soft:#D7BD7C;
+    --v-cream:#F5EFE2; --v-cream-2:#EAE0CB; --v-line:#D8CBAC;
 
-    /* Seoul — night ink, Christmas neon, cool silver */
-    --s-ink:#0D101A;
-    --s-ink-2:#161B2A;
-    --s-ink-3:#1F2638;
-    --s-red:#E63E5C;
-    --s-gold:#EAC76B;
-    --s-silver:#9AA6BF;
-    --s-cream:#EEF1F8;
-    --s-line:#2A3146;
+    --s-ink:#0D101A; --s-ink-2:#161B2A; --s-ink-3:#1F2638;
+    --s-red:#E63E5C; --s-gold:#EAC76B; --s-silver:#9AA6BF;
+    --s-cream:#EEF1F8; --s-line:#2A3146;
+
+    --done:#8a9088;
   }
-
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0;font-family:var(--body);background:var(--paper);color:#1b1b1b;
-    -webkit-font-smoothing:antialiased;line-height:1.55;
-  }
+  body{margin:0;font-family:var(--body);background:var(--paper);color:#1b1b1b;-webkit-font-smoothing:antialiased;line-height:1.55}
   h1,h2,h3,h4{font-family:var(--display);font-weight:600;margin:0;line-height:1.05}
-  a{color:inherit}
   .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
-  .eyebrow{font-family:var(--body);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:11px}
 
   /* ---------- HERO ---------- */
-  .hero{position:relative;overflow:hidden}
-  .hero-split{display:grid;grid-template-columns:1fr 1fr;min-height:62vh}
-  .hero-half{padding:54px 40px;display:flex;flex-direction:column;justify-content:flex-end}
-  .hero-v{background:
-      radial-gradient(120% 90% at 20% 0%, rgba(255,255,255,.5), transparent 60%),
-      linear-gradient(160deg,var(--v-cream),var(--v-cream-2));
-    color:var(--v-ink);border-right:1px solid rgba(0,0,0,.06)}
-  .hero-s{background:
-      radial-gradient(120% 90% at 80% 0%, rgba(230,62,92,.22), transparent 55%),
-      linear-gradient(160deg,var(--s-ink-2),var(--s-ink));
-    color:var(--s-cream)}
-  .hero-half .place{font-size:13px;letter-spacing:.32em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
-  .hero-half h2{font-size:clamp(34px,5vw,58px);font-weight:600;letter-spacing:-.01em}
+  .hero-split{display:grid;grid-template-columns:1fr 1fr;min-height:46vh}
+  .hero-half{padding:44px 36px;display:flex;flex-direction:column;justify-content:flex-end}
+  .hero-v{background:radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.5),transparent 60%),linear-gradient(160deg,var(--v-cream),var(--v-cream-2));color:var(--v-ink);border-right:1px solid rgba(0,0,0,.06)}
+  .hero-s{background:radial-gradient(120% 90% at 80% 0%,rgba(230,62,92,.22),transparent 55%),linear-gradient(160deg,var(--s-ink-2),var(--s-ink));color:var(--s-cream)}
+  .hero-half .place{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
+  .hero-half h2{font-size:clamp(30px,4.6vw,52px)}
   .hero-v .accent{color:var(--v-gold)}
   .hero-s .accent{color:var(--s-red)}
-  .hero-half .sub{margin-top:10px;font-size:14px;opacity:.78;max-width:34ch}
+  .hero-band{background:#0f1f16;color:#f3ecdb;text-align:center;padding:22px 22px 26px;border-top:3px solid var(--v-gold)}
+  .hero-band .kicker{text-transform:uppercase;letter-spacing:.3em;font-size:10.5px;color:var(--v-gold-soft)}
+  .hero-band h1{font-size:clamp(26px,4vw,44px);margin:8px 0 4px;color:#fff}
+  .hero-band .dates{font-size:13.5px;opacity:.82}
 
-  .hero-band{
-    background:#0f1f16;color:#f3ecdb;text-align:center;padding:26px 22px 30px;
-    border-top:3px solid var(--v-gold)}
-  .hero-band .kicker{font-family:var(--body);text-transform:uppercase;letter-spacing:.3em;font-size:11px;color:var(--v-gold-soft)}
-  .hero-band h1{font-size:clamp(30px,4.6vw,50px);font-weight:600;margin:10px 0 4px;color:#fff}
-  .hero-band .dates{font-size:14px;opacity:.82;letter-spacing:.02em}
+  /* ---------- VUELOS ---------- */
+  .flights{background:#11130f;color:#e9e3d2;padding:16px 0 20px}
+  .flights .wrap{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px}
+  .flt{flex:0 0 auto;min-width:178px;border:1px solid #2b2c25;border-radius:12px;padding:11px 13px;background:#16180f}
+  .flt .d{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#b9b08c}
+  .flt .r{font-family:var(--display);font-size:18px;margin:3px 0 2px;color:#fff}
+  .flt .t{font-size:12px;color:#cfc8b0}
+  .flt .c{font-size:10.5px;color:#8f8a72;margin-top:3px}
 
-  /* ---------- FLIGHT STRIP ---------- */
-  .flights{background:#11130f;color:#e9e3d2;padding:18px 0 22px}
-  .flights .wrap{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px}
-  .flt{flex:0 0 auto;min-width:188px;border:1px solid #2b2c25;border-radius:12px;padding:12px 14px;background:#16180f}
-  .flt .d{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b9b08c}
-  .flt .r{font-family:var(--display);font-size:19px;margin:3px 0 2px;color:#fff}
-  .flt .t{font-size:12.5px;color:#cfc8b0}
-  .flt .c{font-size:11px;color:#8f8a72;margin-top:4px}
-  .flt.kr{border-color:#3a2530;background:#1a121600}
-
-  /* ---------- CITY SECTIONS ---------- */
-  .city{padding:0 0 30px}
-  .city-head{position:sticky;top:0;z-index:500;padding:16px 0;backdrop-filter:saturate(1.1) blur(4px)}
-  .vienna .city-head{background:linear-gradient(180deg,rgba(30,61,43,.97),rgba(30,61,43,.9));color:#f4eeDF;border-bottom:1px solid rgba(216,189,124,.4)}
-  .seoul  .city-head{background:linear-gradient(180deg,rgba(13,16,26,.97),rgba(13,16,26,.92));color:var(--s-cream);border-bottom:1px solid var(--s-line)}
-  .city-head .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .city-head h2{font-size:clamp(26px,3.6vw,40px);font-weight:600}
+  /* ---------- CIUDAD ---------- */
+  .city-head{position:sticky;top:0;z-index:600;padding:13px 0;backdrop-filter:saturate(1.1) blur(4px)}
+  .vienna .city-head{background:linear-gradient(180deg,rgba(30,61,43,.97),rgba(30,61,43,.92));color:#f4eedf;border-bottom:1px solid rgba(216,189,124,.4)}
+  .seoul  .city-head{background:linear-gradient(180deg,rgba(13,16,26,.97),rgba(13,16,26,.93));color:var(--s-cream);border-bottom:1px solid var(--s-line)}
+  .city-head .wrap{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .city-head h2{font-size:clamp(24px,3.2vw,36px)}
   .vienna .city-head .accent{color:var(--v-gold-soft)}
   .seoul  .city-head .accent{color:var(--s-red)}
-  .city-head .meta{font-size:12.5px;letter-spacing:.04em;opacity:.85;text-align:right}
+  .city-head .meta{font-size:12px;opacity:.85;text-align:right}
+  .city-head .count{font-weight:600}
 
-  .intro{padding:30px 0 6px}
+  .intro{padding:24px 0 4px}
   .vienna .intro{background:linear-gradient(180deg,var(--v-cream),var(--paper))}
   .seoul  .intro{background:linear-gradient(180deg,var(--s-ink),#0c0f17);color:var(--s-cream)}
-  .intro .lead{font-family:var(--display);font-size:clamp(19px,2.4vw,25px);font-weight:400;max-width:62ch;line-height:1.35}
+  .intro .lead{font-family:var(--display);font-size:clamp(18px,2.2vw,23px);font-weight:400;max-width:62ch;line-height:1.35}
   .vienna .intro .lead{color:var(--v-ink)}
-  .facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-  .fact{font-size:12.5px;border-radius:999px;padding:7px 14px;border:1px solid;display:flex;gap:7px;align-items:center}
+  .facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+  .fact{font-size:12px;border-radius:999px;padding:6px 13px;border:1px solid}
   .vienna .fact{border-color:var(--v-line);background:#fff;color:var(--v-ink)}
   .seoul  .fact{border-color:var(--s-line);background:var(--s-ink-2);color:var(--s-cream)}
-  .fact b{font-weight:600}
-  .vienna .fact .dot{color:var(--v-gold)}
-  .seoul  .fact .dot{color:var(--s-red)}
+  .vienna .fact b{color:var(--v-green)}
+  .seoul  .fact b{color:var(--s-gold)}
 
-  /* ---------- MAP ---------- */
-  .mapwrap{margin:24px 0 6px}
-  .map{height:470px;width:100%;border-radius:16px;overflow:hidden}
+  .mapwrap{margin:20px 0 4px}
+  .map{height:440px;width:100%;border-radius:16px;overflow:hidden}
   .vienna .map{border:1px solid var(--v-line);box-shadow:0 12px 30px rgba(40,60,45,.12)}
   .seoul  .map{border:1px solid var(--s-line);box-shadow:0 12px 34px rgba(0,0,0,.5)}
-  .map-cap{font-size:12px;margin-top:9px;opacity:.7}
+  .map-cap{font-size:11.5px;margin-top:8px;opacity:.7}
   .seoul .map-cap{color:var(--s-silver)}
 
-  .pin{display:flex;align-items:center;justify-content:center;font-family:var(--body);
-    font-weight:600;font-size:12px;border-radius:50% 50% 50% 2px;transform:rotate(45deg);
-    width:26px;height:26px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-  .pin span{transform:rotate(-45deg)}
+  .pin{display:flex;align-items:center;justify-content:center;border-radius:50% 50% 50% 2px;transform:rotate(45deg);width:30px;height:30px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+  .pin i{transform:rotate(-45deg);font-size:16px;line-height:1}
   .pin-v{background:var(--v-green);color:#fff;border:1.5px solid var(--v-gold-soft)}
   .pin-s{background:var(--s-red);color:#fff;border:1.5px solid #ffd9e0}
-  .pin-hotel{background:var(--v-gold);color:#1c1c1c}
-  .pin-hotel-s{background:var(--s-gold);color:#15151f}
+  .pin-hotel{background:var(--v-gold);color:#1c1c1c;border:1.5px solid #fff}
+  .pin-hotel-s{background:var(--s-gold);color:#15151f;border:1.5px solid #fff}
+  .pin-done{background:var(--done) !important;color:#fff !important;border:1.5px solid #fff !important;opacity:.75}
   .leaflet-popup-content-wrapper{border-radius:12px}
   .leaflet-popup-content{margin:11px 14px;font-family:var(--body)}
   .pop-n{font-family:var(--display);font-size:15px;font-weight:600;margin-bottom:2px}
-  .pop-t{font-size:11px;text-transform:uppercase;letter-spacing:.12em;opacity:.6;margin-bottom:4px}
+  .pop-t{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;opacity:.6;margin-bottom:4px}
   .pop-d{font-size:12.5px;line-height:1.4}
+  .pop-link{display:inline-block;margin-top:6px;font-size:12px;font-weight:600;text-decoration:none;border-bottom:1px solid}
 
-  /* ---------- DAY CARDS ---------- */
-  .days{padding:14px 0 0}
-  .day{display:grid;grid-template-columns:120px 1fr;gap:0;border-radius:16px;overflow:hidden;margin:16px 0;
-    border:1px solid}
-  .vienna .day{border-color:var(--v-line);background:#fff}
-  .seoul  .day{border-color:var(--s-line);background:var(--s-ink-2);color:var(--s-cream)}
-  .day-rail{padding:20px 16px;display:flex;flex-direction:column;gap:3px}
-  .vienna .day-rail{background:linear-gradient(165deg,var(--v-green),var(--v-green-2));color:#f3ecdb}
-  .seoul  .day-rail{background:linear-gradient(165deg,#171c2c,#10131e);color:var(--s-cream);border-right:1px solid var(--s-line)}
-  .day-rail .dn{font-family:var(--body);text-transform:uppercase;letter-spacing:.16em;font-size:10.5px;opacity:.75}
-  .day-rail .dd{font-family:var(--display);font-size:30px;font-weight:600;line-height:1}
-  .day-rail .dw{font-size:12.5px;opacity:.82}
-  .vienna .day-rail .num{margin-top:10px;font-size:11px;letter-spacing:.14em;color:var(--v-gold-soft)}
-  .seoul  .day-rail .num{margin-top:10px;font-size:11px;letter-spacing:.14em;color:var(--s-red)}
+  /* ---------- CONTROLES ---------- */
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:18px 0 8px}
+  .ctl-label{font-size:11px;text-transform:uppercase;letter-spacing:.14em;opacity:.6;margin-right:2px}
+  .seg{display:inline-flex;border-radius:999px;overflow:hidden;border:1px solid}
+  .vienna .seg{border-color:var(--v-line);background:#fff}
+  .seoul  .seg{border-color:var(--s-line);background:var(--s-ink-2)}
+  .seg button{font-family:var(--body);font-size:12.5px;font-weight:500;padding:7px 15px;border:none;background:transparent;cursor:pointer;color:inherit}
+  .vienna .seg button{color:var(--v-ink)}
+  .seoul  .seg button{color:var(--s-cream)}
+  .vienna .seg button.on{background:var(--v-green);color:#fff;font-weight:600}
+  .seoul  .seg button.on{background:var(--s-red);color:#fff;font-weight:600}
+  .seoul .controls .ctl-label{color:var(--s-silver)}
 
-  .day-body{padding:18px 20px}
-  .day-theme{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:3px}
-  .vienna .day-theme{color:var(--v-ink)}
-  .day-note{font-size:12.5px;opacity:.72;margin-bottom:13px}
-  .stop{display:grid;grid-template-columns:60px 1fr;gap:12px;padding:9px 0;border-top:1px dashed}
-  .vienna .stop{border-color:var(--v-line)}
-  .seoul  .stop{border-color:var(--s-line)}
-  .stop:first-of-type{border-top:none}
-  .stop .when{font-size:12px;font-weight:600;opacity:.65;padding-top:2px}
-  .stop .what{display:flex;flex-direction:column;gap:3px}
-  .stop .line1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .stop .nm{font-weight:600;font-size:14.5px}
-  .badge{font-family:var(--body);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    padding:2px 7px;border-radius:6px;border:1px solid}
-  .vienna .badge{color:var(--v-green);border-color:var(--v-line);background:var(--v-cream)}
-  .seoul  .badge{color:var(--s-silver);border-color:var(--s-line);background:var(--s-ink-3)}
-  .badge.eat{background:#7a3322;color:#ffe;border-color:#7a3322}
-  .seoul .badge.eat{background:#4a1722;color:#ffdce3;border-color:#6e2233}
-  .badge.star{background:var(--v-gold);color:#1c1c1c;border-color:var(--v-gold)}
-  .seoul .badge.star{background:var(--s-red);color:#fff;border-color:var(--s-red)}
-  .mapnum{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;
-    border-radius:6px;font-size:11px;font-weight:600;padding:0 5px}
-  .vienna .mapnum{background:var(--v-green);color:#fff}
-  .seoul  .mapnum{background:var(--s-red);color:#fff}
-  .stop .desc{font-size:12.5px;opacity:.78;line-height:1.45}
+  /* ---------- LISTADO ---------- */
+  .list{padding:6px 0 26px}
+  .grp{margin:20px 0 10px}
+  .grp-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding-bottom:7px;margin-bottom:10px;border-bottom:2px solid}
+  .vienna .grp-head{border-color:var(--v-gold-soft)}
+  .seoul  .grp-head{border-color:var(--s-red)}
+  .grp-head h3{font-size:19px}
+  .vienna .grp-head h3{color:var(--v-ink)}
+  .seoul  .grp-head h3{color:var(--s-cream)}
+  .grp-head .gcount{font-size:12px;opacity:.65}
+  .seoul .grp-head .gcount{color:var(--s-silver)}
 
-  /* ---------- NOTE PANELS ---------- */
-  .panel{border-radius:16px;padding:20px 22px;margin:20px 0}
-  .vienna .panel{background:var(--v-green);color:#f1ead9;border:1px solid var(--v-green-2)}
+  .card{display:grid;grid-template-columns:44px 1fr;gap:12px;border-radius:14px;border:1px solid;padding:13px 15px;margin:9px 0;transition:opacity .2s,background .2s}
+  .vienna .card{border-color:var(--v-line);background:#fff}
+  .seoul  .card{border-color:var(--s-line);background:var(--s-ink-2);color:var(--s-cream)}
+  .card.done{opacity:.55}
+  .vienna .card.done{background:#f0ede4}
+  .seoul  .card.done{background:#131722}
+  .card.done .nm{text-decoration:line-through;text-decoration-thickness:1.5px}
+
+  .chk{width:30px;height:30px;border-radius:50%;border:2px solid;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;padding:0;margin-top:2px}
+  .vienna .chk{border-color:var(--v-gold);color:transparent}
+  .seoul  .chk{border-color:var(--s-red);color:transparent}
+  .card.done .chk{background:var(--done);border-color:var(--done);color:#fff}
+
+  .card .body{min-width:0}
+  .line1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .caticon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:14px}
+  .vienna .caticon{background:var(--v-green);color:#fff}
+  .seoul  .caticon{background:var(--s-red);color:#fff}
+  .card.done .caticon{background:var(--done)}
+  .nm{font-weight:600;font-size:15px}
+  .chip{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:6px;border:1px solid}
+  .vienna .chip{color:var(--v-green);border-color:var(--v-line);background:var(--v-cream)}
+  .seoul  .chip{color:var(--s-silver);border-color:var(--s-line);background:var(--s-ink-3)}
+  .zonechip{font-size:11px;opacity:.6}
+  .when{margin-top:5px;font-size:12.5px;font-weight:600}
+  .vienna .when{color:var(--v-gold)}
+  .seoul  .when{color:var(--s-gold)}
+  .when::before{content:'🕐 '}
+  .desc{margin-top:3px;font-size:12.5px;opacity:.78;line-height:1.45}
+  .golink{font-size:12px;font-weight:600;text-decoration:none;margin-top:5px;display:inline-block;border-bottom:1px solid}
+  .vienna .golink{color:var(--v-green);border-color:var(--v-gold-soft)}
+  .seoul  .golink{color:var(--s-red);border-color:var(--s-red)}
+
+  /* ---------- PANEL ---------- */
+  .panel{border-radius:16px;padding:18px 20px;margin:8px 0 26px}
+  .vienna .panel{background:var(--v-green);color:#f1ead9}
   .seoul  .panel{background:linear-gradient(160deg,var(--s-ink-3),var(--s-ink-2));color:var(--s-cream);border:1px solid var(--s-line)}
-  .panel h3{font-size:18px;margin-bottom:10px}
-  .vienna .panel h3 span,.seoul .panel h3 span{color:inherit}
+  .panel h3{font-size:17px;margin-bottom:9px}
   .vienna .panel .hl{color:var(--v-gold-soft)}
   .seoul  .panel .hl{color:var(--s-red)}
   .panel ul{margin:0;padding-left:18px;font-size:13px}
-  .panel li{margin:6px 0}
+  .panel li{margin:5px 0}
 
-  /* ---------- FOOTER ---------- */
-  footer{background:#11130f;color:#cfc8b0;padding:34px 0 44px;margin-top:30px}
-  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end}
-  footer h4{font-family:var(--display);color:#fff;font-size:20px;margin-bottom:6px}
-  footer p{font-size:12.5px;max-width:48ch;margin:4px 0}
+  footer{background:#11130f;color:#cfc8b0;padding:28px 0 40px;margin-top:8px}
+  footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:flex-end}
+  footer h4{font-family:var(--display);color:#fff;font-size:19px;margin-bottom:5px}
+  footer p{font-size:12px;max-width:52ch;margin:3px 0}
   footer .gold{color:var(--v-gold-soft)}
+  footer button.reset{font-family:var(--body);font-size:11.5px;background:transparent;color:#8f8a72;border:1px solid #3a3b32;border-radius:8px;padding:6px 12px;cursor:pointer}
 
   @media(max-width:740px){
     .hero-split{grid-template-columns:1fr}
     .hero-v{border-right:none;border-bottom:1px solid rgba(0,0,0,.06)}
-    .hero-half{min-height:240px;padding:34px 24px}
-    .day{grid-template-columns:1fr}
-    .day-rail{flex-direction:row;align-items:baseline;gap:12px;padding:14px 18px}
-    .day-rail .num{margin-top:0;margin-left:auto}
-    .stop{grid-template-columns:52px 1fr;gap:10px}
-    .map{height:380px}
+    .hero-half{min-height:170px;padding:28px 22px}
+    .map{height:360px}
     .city-head .meta{text-align:left}
   }
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 
-<!-- ============ HERO ============ -->
+<!-- ============ PORTADA ============ -->
 <header class="hero">
   <div class="hero-split">
     <div class="hero-half hero-v">
-      <div class="place">Vienna · Austria</div>
-      <h2>Imperial<br><span class="accent">winter</span></h2>
-      <div class="sub">Christkindlmärkte, coffeehouse mornings, Habsburg halls. Dec 13&ndash;20.</div>
+      <div class="place">Viena · Austria</div>
+      <h2>Invierno <span class="accent">imperial</span></h2>
     </div>
     <div class="hero-half hero-s">
-      <div class="place">Seoul · South Korea</div>
-      <h2>Neon<br><span class="accent">Noël</span></h2>
-      <div class="sub">Megamalls, palace dusk, illuminations after dark. Dec 21&ndash;Jan 1.</div>
+      <div class="place">Seúl · Corea del Sur</div>
+      <h2>Navidad <span class="accent">de neón</span></h2>
     </div>
   </div>
   <div class="hero-band">
-    <div class="kicker">Family winter itinerary</div>
-    <h1>Two Cities, One Winter</h1>
-    <div class="dates">Saturday 12 December 2026 &mdash; Friday 1 January 2027</div>
+    <div class="kicker">Guía de lugares · invierno en familia</div>
+    <h1>Dos ciudades, un invierno</h1>
+    <div class="dates">12 de diciembre de 2026 — 1 de enero de 2027</div>
   </div>
 </header>
 
-<!-- ============ FLIGHTS ============ -->
+<!-- ============ VUELOS ============ -->
 <section class="flights">
   <div class="wrap">
-    <div class="flt"><div class="d">Sat 12 Dec</div><div class="r">SJU → VIE</div><div class="t">18:10 → 19:05<sup>+1</sup></div><div class="c">Iberia · via Madrid</div></div>
-    <div class="flt kr"><div class="d">Sun 20 Dec</div><div class="r">VIE → ICN</div><div class="t">19:15 → 14:15<sup>+1</sup></div><div class="c">Korean Air · direct</div></div>
-    <div class="flt kr"><div class="d">Fri 1 Jan</div><div class="r">ICN → VIE</div><div class="t">11:55 → 16:55</div><div class="c">Korean Air · direct</div></div>
-    <div class="flt"><div class="d">Sat 2 Jan</div><div class="r">VIE → PMI</div><div class="t">09:20 → 11:50</div><div class="c">Austrian · direct</div></div>
-    <div class="flt"><div class="d">Sat 9 Jan</div><div class="r">PMI → SJU</div><div class="t">08:00 → 16:40</div><div class="c">Air Europa + Iberia · via MAD</div></div>
+    <div class="flt"><div class="d">Sáb 12 dic</div><div class="r">SJU → VIE</div><div class="t">18:10 → 19:05<sup>+1</sup></div><div class="c">Iberia · vía Madrid</div></div>
+    <div class="flt"><div class="d">Dom 20 dic</div><div class="r">VIE → ICN</div><div class="t">19:15 → 14:15<sup>+1</sup></div><div class="c">Korean Air · directo</div></div>
+    <div class="flt"><div class="d">Vie 1 ene</div><div class="r">ICN → VIE</div><div class="t">11:55 → 16:55</div><div class="c">Korean Air · directo</div></div>
+    <div class="flt"><div class="d">Sáb 2 ene</div><div class="r">VIE → PMI</div><div class="t">09:20 → 11:50</div><div class="c">Austrian · directo</div></div>
+    <div class="flt"><div class="d">Sáb 9 ene</div><div class="r">PMI → SJU</div><div class="t">08:00 → 16:40</div><div class="c">Air Europa + Iberia · vía MAD</div></div>
   </div>
 </section>
 
-<!-- ============ VIENNA ============ -->
-<section class="city vienna" id="vienna">
+<!-- ============ VIENA ============ -->
+<section class="city vienna" id="viena">
   <div class="city-head">
     <div class="wrap">
-      <h2>Vienna · <span class="accent">6 days</span></h2>
-      <div class="meta">Courtyard by Marriott Prater/Messe &middot; Dec 13&ndash;20 (7 nights)</div>
+      <h2>Viena · <span class="accent">13–20 dic</span></h2>
+      <div class="meta">Courtyard Prater/Messe · 7 noches<br><span class="count" id="count-v"></span></div>
     </div>
   </div>
 
   <div class="intro">
     <div class="wrap">
-      <p class="lead">A city built for December. The sun sets near 16:00, so every market is glowing by late afternoon &mdash; you can have the full lantern-lit atmosphere and still be home by nine.</p>
+      <p class="lead">Una ciudad hecha para diciembre. El sol se pone hacia las 16:00, así que los mercados brillan desde media tarde — atmósfera completa y en el hotel antes de las nueve.</p>
       <div class="facts">
-        <div class="fact"><span class="dot">●</span> <b>Rhythm:</b> out by 10:00, home by 8&ndash;9</div>
-        <div class="fact"><span class="dot">●</span> <b>Sunset ≈ 16:05</b> — markets glow early</div>
-        <div class="fact"><span class="dot">●</span> <b>Kids join Fri Dec 18</b> (assumed)</div>
-        <div class="fact"><span class="dot">●</span> <b>Closed Sun:</b> shops &amp; Donau Zentrum</div>
-        <div class="fact"><span class="dot">●</span> <b>Leopold closed Tue</b></div>
-        <div class="fact"><span class="dot">●</span> No shellfish · no fish — skip Naschmarkt stalls</div>
+        <div class="fact"><b>Anochece</b> ≈ 16:05</div>
+        <div class="fact"><b>Domingos:</b> tiendas y Donau Zentrum cerrados (mercados abiertos)</div>
+        <div class="fact"><b>Leopold</b> cierra martes</div>
+        <div class="fact">Sin marisco · sin pescado — evitar los puestos del Naschmarkt</div>
       </div>
     </div>
   </div>
@@ -267,147 +245,55 @@
   <div class="wrap">
     <div class="mapwrap">
       <div id="map-vienna" class="map"></div>
-      <div class="map-cap">Numbered pins match the daily stops below. Gold pin = your hotel. Tap any pin for details.</div>
+      <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓. Toca un pin para ver detalles y cómo llegar.</div>
     </div>
-  </div>
 
-  <div class="wrap days">
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 1</div><div class="dd">13</div><div class="dw">Sunday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Land &amp; settle</div>
-        <div class="day-note">Arrive VIE 19:05 — an easy evening, no agenda.</div>
-        <div class="stop"><div class="when">19:05</div><div class="what"><div class="line1"><span class="nm">Arrive Vienna → Courtyard Prater/Messe</span><span class="mapnum">H</span><span class="badge">Hotel</span></div><div class="desc">OBB or taxi from the airport, ~20 min. The hotel sits on the U2 line, right by the Prater.</div></div></div>
-        <div class="stop"><div class="when">~21:00</div><div class="what"><div class="line1"><span class="nm">Easy dinner near the hotel</span><span class="badge eat">Dinner</span></div><div class="desc">Something simple after the long haul. The lit Riesenrad is a 10-min stroll if you want a first glimpse of Vienna from the Prater.</div></div></div>
+    <div class="controls">
+      <span class="ctl-label">Agrupar</span>
+      <div class="seg" data-city="v" data-role="group">
+        <button data-val="zone" class="on">Por zona</button>
+        <button data-val="cat">Por categoría</button>
+      </div>
+      <span class="ctl-label">Mostrar</span>
+      <div class="seg" data-city="v" data-role="filter">
+        <button data-val="all" class="on">Todos</button>
+        <button data-val="pending">Pendientes</button>
+        <button data-val="done">Visitados</button>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 2</div><div class="dd">14</div><div class="dw">Monday</div></div>
-      <div class="day-body">
-        <div class="day-theme">The imperial core</div>
-        <div class="day-note">First coffeehouse, the cathedral, the Habsburgs, and the flagship market at dusk.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Café Central</span><span class="mapnum">4</span><span class="badge eat">Coffee</span></div><div class="desc">The columned icon — a melange and a slice to start. Expect a short queue (reopened from renovation; will confirm before the trip).</div></div></div>
-        <div class="stop"><div class="when">11:30</div><div class="what"><div class="line1"><span class="nm">St. Stephen's Cathedral</span><span class="mapnum">3</span><span class="badge">Sight</span></div><div class="desc">The Gothic heart of the old town, a short walk through Graben.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Figlmüller Wollzeile</span><span class="mapnum">23</span><span class="badge eat">Lunch</span></div><div class="desc">The plate-sized Wiener Schnitzel (pork). Reserve ahead — Wollzeile doesn't take walk-ins.</div></div></div>
-        <div class="stop"><div class="when">15:00</div><div class="what"><div class="line1"><span class="nm">Hofburg — Imperial Apartments &amp; Sisi Museum</span><span class="mapnum">5</span><span class="badge">Palace</span></div><div class="desc">The Habsburg winter residence; the Sisi story and the Silver Collection.</div></div></div>
-        <div class="stop"><div class="when">16:30</div><div class="what"><div class="line1"><span class="nm">Rathausplatz Christkindlmarkt</span><span class="mapnum">6</span><span class="badge star">Market</span></div><div class="desc">The flagship: City Hall lit up, the glowing-heart tree, skating loops through the park. Pure Vienna after dark.</div></div></div>
-        <div class="stop"><div class="when">~19:00</div><div class="what"><div class="line1"><span class="nm">Dinner in the centre, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
+    <div class="list" id="list-v"></div>
 
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 3</div><div class="dd">15</div><div class="dw">Tuesday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Schönbrunn &amp; the boiled-beef ritual</div>
-        <div class="day-note">Out to the summer palace, back for an artisan market and Tafelspitz. (Leopold closed today.)</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Schönbrunn Palace</span><span class="mapnum">7</span><span class="badge">Palace</span></div><div class="desc">Grand Tour of the state rooms, then up to the Gloriette for the view. Gardens free to roam — magic if there's snow.</div></div></div>
-        <div class="stop"><div class="when">12:30</div><div class="what"><div class="line1"><span class="nm">Schönbrunn Christmas Market</span><span class="mapnum">7</span><span class="badge eat">Market · Lunch</span></div><div class="desc">In the palace forecourt — handicrafts, Advent music, and stalls to graze (plenty of meat &amp; sweet; skip the fish).</div></div></div>
-        <div class="stop"><div class="when">16:00</div><div class="what"><div class="line1"><span class="nm">Karlsplatz Art Advent</span><span class="mapnum">9</span><span class="badge star">Market</span></div><div class="desc">Artisan &amp; organic market under the dome of Karlskirche — one of the most atmospheric, with a quiet craft focus.</div></div></div>
-        <div class="stop"><div class="when">19:00</div><div class="what"><div class="line1"><span class="nm">Plachutta Wollzeile</span><span class="mapnum">24</span><span class="badge eat">Dinner</span></div><div class="desc">Tafelspitz — the Viennese boiled-beef ceremony, broth to marrow to horseradish. Deeply warming. Reserve.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 4</div><div class="dd">16</div><div class="dw">Wednesday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Masters &amp; the Kiss</div>
-        <div class="day-note">Two of the great collections, bracketed by coffee and the prettiest market.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Café Sacher</span><span class="mapnum">18</span><span class="badge eat">Coffee</span></div><div class="desc">The Original Sacher-Torte by the Opera — touristy, but you've earned the cliché once.</div></div></div>
-        <div class="stop"><div class="when">11:15</div><div class="what"><div class="line1"><span class="nm">Kunsthistorisches Museum</span><span class="mapnum">10</span><span class="badge">Museum</span></div><div class="desc">Bruegel and Vermeer in a building that's a masterpiece itself. Two unhurried hours.</div></div></div>
-        <div class="stop"><div class="when">13:30</div><div class="what"><div class="line1"><span class="nm">Bitzinger Würstelstand</span><span class="mapnum">19</span><span class="badge eat">Lunch</span></div><div class="desc">Gourmet sausage in a baguette by the Albertina — the perfect quick, very-Viennese bite.</div></div></div>
-        <div class="stop"><div class="when">14:45</div><div class="what"><div class="line1"><span class="nm">Upper Belvedere</span><span class="mapnum">11</span><span class="badge">Museum</span></div><div class="desc">Klimt's <i>The Kiss</i> and the Austrian masters, in a baroque palace.</div></div></div>
-        <div class="stop"><div class="when">16:15</div><div class="what"><div class="line1"><span class="nm">Belvedere Christmas Market</span><span class="mapnum">11</span><span class="badge star">Market</span></div><div class="desc">Right in front of the palace — the most photogenic of the lot at dusk.</div></div></div>
-        <div class="stop"><div class="when">~19:00</div><div class="what"><div class="line1"><span class="nm">Dinner, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 5</div><div class="dd">17</div><div class="dw">Thursday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Shopping day &amp; the cosy lanes</div>
-        <div class="day-note">Luxury quarter to the long high street, then the snuggest market. (Shops open — weekday.)</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Demel</span><span class="mapnum">12</span><span class="badge eat">Coffee</span></div><div class="desc">The imperial confectioner on Kohlmarkt — the hot chocolate and the jewel-box rooms.</div></div></div>
-        <div class="stop"><div class="when">11:15</div><div class="what"><div class="line1"><span class="nm">Goldenes Quartier · Kohlmarkt · Graben</span><span class="mapnum">13</span><span class="badge">Shop</span></div><div class="desc">The luxury spine — watches and the elegant houses — flowing toward the cathedral.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Zum Schwarzen Kameel</span><span class="mapnum">16</span><span class="badge eat">Lunch</span></div><div class="desc">Historic and elegant — open-face bites and Austrian classics (the potato salad is famous).</div></div></div>
-        <div class="stop"><div class="when">14:30</div><div class="what"><div class="line1"><span class="nm">Kärntner Straße → Mariahilfer Straße</span><span class="mapnum">14</span><span class="badge">Shop</span></div><div class="desc">The pedestrian spine (Steffl), then Vienna's longest shopping street <span class="mapnum">15</span> if you've energy.</div></div></div>
-        <div class="stop"><div class="when">16:30</div><div class="what"><div class="line1"><span class="nm">Spittelberg Market</span><span class="mapnum">17</span><span class="badge star">Market</span></div><div class="desc">Cobblestone Biedermeier lanes, artsy crafts, the cosiest and least touristy of the markets.</div></div></div>
-        <div class="stop"><div class="when">~19:00</div><div class="what"><div class="line1"><span class="nm">Dinner, then home</span><span class="badge eat">Dinner</span></div><div class="desc">Optional swap: the Kunsthistorisches stays open to 21:00 on Thursdays if you'd rather trade shopping for more art.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 6</div><div class="dd">18</div><div class="dw">Friday</div><div class="num">FAMILY</div></div>
-      <div class="day-body">
-        <div class="day-theme">The family arrives — Prater &amp; the old-town markets</div>
-        <div class="day-note">Kids land today (assumed) → Courtyard to four rooms. A relaxed afternoon that flexes around their arrival.</div>
-        <div class="stop"><div class="when">flex</div><div class="what"><div class="line1"><span class="nm">Meet the kids · settle</span><span class="badge">Family</span></div><div class="desc">Shape the morning around their landing time. If earlier, add a coffee &amp; a market.</div></div></div>
-        <div class="stop"><div class="when">14:30</div><div class="what"><div class="line1"><span class="nm">Wiener Riesenrad &amp; the Prater</span><span class="mapnum">2</span><span class="badge star">Family</span></div><div class="desc">The giant wheel by your hotel — festive city views and a little market at the base.</div></div></div>
-        <div class="stop"><div class="when">16:30</div><div class="what"><div class="line1"><span class="nm">Am Hof &amp; Freyung markets</span><span class="mapnum">21</span><span class="badge star">Market</span></div><div class="desc">Two traditional old-town markets a few steps apart — upscale, handcrafted, classic.</div></div></div>
-        <div class="stop"><div class="when">19:00</div><div class="what"><div class="line1"><span class="nm">Family dinner (table for four)</span><span class="badge eat">Dinner</span></div><div class="desc">A hearty Austrian spot in the centre — Zum Schwarzen Kameel or similar. Reserve.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 7</div><div class="dd">19</div><div class="dw">Saturday</div><div class="num">FAMILY</div></div>
-      <div class="day-body">
-        <div class="day-theme">Lipizzaners &amp; one last market night</div>
-        <div class="day-note">The marquee family event, last shopping, and a final glühwein under the lights.</div>
-        <div class="stop"><div class="when">AM/PM</div><div class="what"><div class="line1"><span class="nm">Spanish Riding School — Performance</span><span class="mapnum">20</span><span class="badge star">Show</span></div><div class="desc">The Lipizzaner stallions in full performance at the Hofburg. <b>Book well ahead</b> — set the day around the showtime.</div></div></div>
-        <div class="stop"><div class="when">13:30</div><div class="what"><div class="line1"><span class="nm">Lunch in the centre</span><span class="badge eat">Lunch</span></div></div></div>
-        <div class="stop"><div class="when">15:00</div><div class="what"><div class="line1"><span class="nm">Last shopping · Graben &amp; Kärntner Straße</span><span class="mapnum">14</span><span class="badge">Shop</span></div><div class="desc">Saturday — shops open. Pick up anything you eyed earlier.</div></div></div>
-        <div class="stop"><div class="when">16:30</div><div class="what"><div class="line1"><span class="nm">Café Schwarzenberg</span><span class="mapnum">22</span><span class="badge eat">Coffee</span></div><div class="desc">The oldest Ringstrasse café (1861) — the "Alt Wiener Art" hot chocolate. Steps from the markets.</div></div></div>
-        <div class="stop"><div class="when">18:00</div><div class="what"><div class="line1"><span class="nm">Favourite market, one more time</span><span class="mapnum">6</span><span class="badge star">Market</span></div><div class="desc">Back to whichever you loved most for the full family Christmas-market night.</div></div></div>
-        <div class="stop"><div class="when">~20:00</div><div class="what"><div class="line1"><span class="nm">Family dinner, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 8</div><div class="dd">20</div><div class="dw">Sunday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Jazz send-off → Seoul</div>
-        <div class="day-note">A free morning before the evening flight — and the perfect farewell.</div>
-        <div class="stop"><div class="when">11:00</div><div class="what"><div class="line1"><span class="nm">Café Schwarzenberg — Sunday Jazz Déjeuner</span><span class="mapnum">22</span><span class="badge star">Coffee · Lunch</span></div><div class="desc">Live jazz trio, 11:00&ndash;13:00, with a late breakfast / early lunch. The ideal Vienna goodbye. (Shops are shut Sunday; markets open for a final glühwein.)</div></div></div>
-        <div class="stop"><div class="when">15:30</div><div class="what"><div class="line1"><span class="nm">Head to VIE airport</span><span class="mapnum">H</span><span class="badge">Transfer</span></div><div class="desc">Collect bags from the Courtyard and out to the airport in good time.</div></div></div>
-        <div class="stop"><div class="when">19:15</div><div class="what"><div class="line1"><span class="nm">Korean Air VIE → Seoul (direct)</span><span class="badge">Flight</span></div><div class="desc">Lands Incheon 14:15 the next afternoon.</div></div></div>
-      </div>
-    </div>
-
-  </div><!-- /days -->
-
-  <div class="wrap">
     <div class="panel">
-      <h3>Vienna <span class="hl">— good to know</span></h3>
+      <h3>Viena — <span class="hl">apuntes</span></h3>
       <ul>
-        <li><b class="hl">The kids' timing is an assumption.</b> I've placed them arriving Fri Dec 18 (family days 18&ndash;20). If they come earlier, the family blocks slide forward — just say the word and the Courtyard goes to four rooms from the right night.</li>
-        <li><b class="hl">Sundays are quiet.</b> Shops and the Donau Zentrum mall close — but Christmas markets stay open, so the two Sundays (arrival &amp; departure) lean on coffee and markets, not shopping.</li>
-        <li><b class="hl">Café Central</b> was under renovation into autumn 2026; it should be reopened for December, but I'll confirm before we commit it.</li>
-        <li><b class="hl">Reserve ahead:</b> Figlmüller, Plachutta, and especially the Spanish Riding School performance.</li>
+        <li><b class="hl">Reservar con antelación:</b> Figlmüller (Wollzeile no acepta sin reserva), Plachutta y, sobre todo, la función de la Escuela Española de Equitación.</li>
+        <li><b class="hl">Café Central</b> estuvo en obras hasta el otoño de 2026; debería estar reabierto en diciembre — confirmar antes de ir.</li>
+        <li><b class="hl">El jueves</b> el Kunsthistorisches abre hasta las 21:00 — la única noche de museo.</li>
+        <li><b class="hl">Los chicos:</b> pendiente su fecha de llegada para ampliar el Courtyard a cuatro.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ SEOUL ============ -->
-<section class="city seoul" id="seoul">
+<!-- ============ SEÚL ============ -->
+<section class="city seoul" id="seul">
   <div class="city-head">
     <div class="wrap">
-      <h2>Seoul · <span class="accent">10 days</span></h2>
-      <div class="meta">Novotel Ambassador Dongdaemun &middot; Dec 21&ndash;Jan 1 (11 nights)</div>
+      <h2>Seúl · <span class="accent">21 dic – 1 ene</span></h2>
+      <div class="meta">Novotel Ambassador Dongdaemun · 11 noches<br><span class="count" id="count-s"></span></div>
     </div>
   </div>
 
   <div class="intro">
     <div class="wrap">
-      <p class="lead">You know this city &mdash; so this is the relaxed, festive version: malls by day, illuminations after dark, palaces in the winter dusk, and built-in buffer days to wander. One late night, by design.</p>
+      <p class="lead">Ya conocéis la ciudad — esta es la versión festiva y sin prisa: malls de día, iluminaciones al caer la tarde, palacios en el crepúsculo de invierno.</p>
       <div class="facts">
-        <div class="fact"><span class="dot">●</span> <b>Rhythm:</b> out by 10:00, home by 8&ndash;9</div>
-        <div class="fact"><span class="dot">●</span> <b>Sunset ≈ 17:20</b></div>
-        <div class="fact"><span class="dot">●</span> <b>Gyeongbokgung:</b> day · closed Tue</div>
-        <div class="fact"><span class="dot">●</span> <b>Deoksugung:</b> to 21:00 · closed Mon</div>
-        <div class="fact"><span class="dot">●</span> <b>N Seoul Tower:</b> the one late night (Dec 24)</div>
-        <div class="fact"><span class="dot">●</span> Meat-forward — no shellfish, no fish</div>
+        <div class="fact"><b>Anochece</b> ≈ 17:20</div>
+        <div class="fact"><b>Gyeongbokgung:</b> cierra martes</div>
+        <div class="fact"><b>Deoksugung:</b> cierra lunes</div>
+        <div class="fact"><b>Si nieva:</b> Gyeongbokgung por la mañana, sin dudarlo</div>
+        <div class="fact">Todo sin marisco ni pescado — carne, pollo, cerdo</div>
       </div>
     </div>
   </div>
@@ -415,164 +301,32 @@
   <div class="wrap">
     <div class="mapwrap">
       <div id="map-seoul" class="map"></div>
-      <div class="map-cap">Numbered pins match the daily stops below. Gold pin = your hotel in Dongdaemun.</div>
+      <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓.</div>
     </div>
-  </div>
 
-  <div class="wrap days">
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 1</div><div class="dd">21</div><div class="dw">Monday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Land &amp; an easy Dongdaemun night</div>
-        <div class="day-note">Arrive ICN 14:15 — recover gently, with the lit DDP on your doorstep.</div>
-        <div class="stop"><div class="when">14:15</div><div class="what"><div class="line1"><span class="nm">Arrive Incheon → Novotel Dongdaemun</span><span class="mapnum">H</span><span class="badge">Hotel</span></div><div class="desc">AREX or limousine bus, ~70 min. Check in, breathe.</div></div></div>
-        <div class="stop"><div class="when">19:00</div><div class="what"><div class="line1"><span class="nm">Korean BBQ near the hotel</span><span class="badge eat">Dinner</span></div><div class="desc">Ease in with samgyeopsal or hanwoo grilled at the table.</div></div></div>
-        <div class="stop"><div class="when">20:30</div><div class="what"><div class="line1"><span class="nm">Dongdaemun Design Plaza, lit up</span><span class="mapnum">2</span><span class="badge">Night</span></div><div class="desc">The Zaha Hadid curves glowing — a 5-minute stroll from your door. No agenda, just a first taste.</div></div></div>
+    <div class="controls">
+      <span class="ctl-label">Agrupar</span>
+      <div class="seg" data-city="s" data-role="group">
+        <button data-val="zone" class="on">Por zona</button>
+        <button data-val="cat">Por categoría</button>
+      </div>
+      <span class="ctl-label">Mostrar</span>
+      <div class="seg" data-city="s" data-role="filter">
+        <button data-val="all" class="on">Todos</button>
+        <button data-val="pending">Pendientes</button>
+        <button data-val="done">Visitados</button>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 2</div><div class="dd">22</div><div class="dw">Tuesday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Megamall day — COEX &amp; Lotte Tower</div>
-        <div class="day-note">Your happy place. (Gyeongbokgung is closed Tuesdays anyway — perfect mall day.)</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Starfield COEX Mall</span><span class="mapnum">12</span><span class="badge">Mall</span></div><div class="desc">The soaring Starfield Library, the aquarium, Christmas decor throughout. Coffee inside mid-morning.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Lunch around COEX</span><span class="badge eat">Lunch</span></div></div></div>
-        <div class="stop"><div class="when">15:00</div><div class="what"><div class="line1"><span class="nm">Lotte World Tower &amp; Mall</span><span class="mapnum">13</span><span class="badge">Mall</span></div><div class="desc">Avenuel luxury floors below; ride Seoul Sky (123F) for the sunset around 17:20.</div></div></div>
-        <div class="stop"><div class="when">17:30</div><div class="what"><div class="line1"><span class="nm">Tower Christmas illumination</span><span class="mapnum">13</span><span class="badge star">Lights</span></div><div class="desc">Light show and market stalls at the tower base after dark.</div></div></div>
-        <div class="stop"><div class="when">19:00</div><div class="what"><div class="line1"><span class="nm">Dinner in Jamsil, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
+    <div class="list" id="list-s"></div>
 
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 3</div><div class="dd">23</div><div class="dw">Wednesday</div><div class="num">PALACES</div></div>
-      <div class="day-body">
-        <div class="day-theme">Palace dusk &amp; the lights downtown</div>
-        <div class="day-note">Gyeongbokgung at golden hour, Deoksugung after dark, the Christmas stream between them.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Café Onion Anguk</span><span class="mapnum">5</span><span class="badge eat">Coffee</span></div><div class="desc">Pastries in a restored hanok, by Anguk station.</div></div></div>
-        <div class="stop"><div class="when">11:15</div><div class="what"><div class="line1"><span class="nm">Bukchon Hanok Village</span><span class="mapnum">5</span><span class="badge">Wander</span></div><div class="desc">Traditional lanes between the palaces — an easy stroll.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Lunch in Insadong</span><span class="mapnum">6</span><span class="badge eat">Lunch</span></div><div class="desc">Bulgogi or a seafood-free bibimbap; gift lanes (hanji, najeonchilgi) all around.</div></div></div>
-        <div class="stop"><div class="when">15:30</div><div class="what"><div class="line1"><span class="nm">Gyeongbokgung Palace — dusk</span><span class="mapnum">3</span><span class="badge star">Palace</span></div><div class="desc">Last entry 16:00; ride the winter golden hour into blue. (The lit-in-darkness night opening is spring/autumn only — this is the dusk version.)</div></div></div>
-        <div class="stop"><div class="when">17:30</div><div class="what"><div class="line1"><span class="nm">Deoksugung Palace — after dark</span><span class="mapnum">4</span><span class="badge star">Palace</span></div><div class="desc">Open to 21:00 and beautifully lit — the genuine night-palace, plus the stone-wall road.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Cheonggyecheon Christmas lights</span><span class="mapnum">8</span><span class="badge star">Lights</span></div><div class="desc">The illuminated stream walk (Seoul Christmas Festival), steps from Deoksugung.</div></div></div>
-        <div class="stop"><div class="when">19:30</div><div class="what"><div class="line1"><span class="nm">Dinner downtown, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 4</div><div class="dd">24</div><div class="dw">Wednesday<br>Eve</div><div class="num">LATE NIGHT</div></div>
-      <div class="day-body">
-        <div class="day-theme">Christmas Eve — Myeongdong &amp; the tower</div>
-        <div class="day-note">The one planned late night: the Shinsegae facade, then N Seoul Tower over the city lights.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Myeongdong</span><span class="mapnum">9</span><span class="badge">Shop</span></div><div class="desc">Cosmetics, street food, festive crowds. Mid-morning coffee somewhere warm.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Shinsegae Main Store — daytime shopping</span><span class="mapnum">10</span><span class="badge">Shop</span></div><div class="desc">The flagship luxury halls (the day visit; the facade comes after dark).</div></div></div>
-        <div class="stop"><div class="when">17:15</div><div class="what"><div class="line1"><span class="nm">Shinsegae Christmas facade show</span><span class="mapnum">10</span><span class="badge star">Lights</span></div><div class="desc">The iconic media-facade light show — the whole block glows.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">N Seoul Tower (Namsan)</span><span class="mapnum">11</span><span class="badge star">View · Late</span></div><div class="desc">Cable car up; the full skyline on Christmas Eve. Open to ~22:30 — tonight runs past nine, by plan.</div></div></div>
-        <div class="stop"><div class="when">20:30</div><div class="what"><div class="line1"><span class="nm">Dinner — up at Namsan or back in Myeongdong</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 5</div><div class="dd">25</div><div class="dw">Friday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Christmas Day — The Hyundai Seoul</div>
-        <div class="day-note">The most elaborate indoor Christmas display in the city, then festive fried chicken.</div>
-        <div class="stop"><div class="when">11:00</div><div class="what"><div class="line1"><span class="nm">The Hyundai Seoul (Yeouido)</span><span class="mapnum">16</span><span class="badge star">Mall</span></div><div class="desc">The indoor garden and the showpiece Christmas village. Coffee on the plant-filled upper terrace.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Lunch in the food hall</span><span class="badge eat">Lunch</span></div><div class="desc">A huge basement hall — easy to find meat-forward options.</div></div></div>
-        <div class="stop"><div class="when">15:00</div><div class="what"><div class="line1"><span class="nm">Yeouido / Han River / IFC Mall</span><span class="badge">Wander</span></div><div class="desc">An easy afternoon by the river next door.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Christmas chimaek</span><span class="badge eat">Dinner</span></div><div class="desc">Korean fried chicken &amp; beer — casual and very Seoul. Home by nine.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 6</div><div class="dd">26</div><div class="dw">Saturday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Coffee crawl — Seongsu &amp; Garosu-gil</div>
-        <div class="day-note">The trendy, slower day: warehouse roasters, the spaceship, boutiques south.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Seongsu-dong café street</span><span class="mapnum">17</span><span class="badge eat">Coffee</span></div><div class="desc">Seoul's "Brooklyn" — converted-warehouse specialty coffee and design shops.</div></div></div>
-        <div class="stop"><div class="when">11:00</div><div class="what"><div class="line1"><span class="nm">Haus Nowhere Seoul</span><span class="mapnum">19</span><span class="badge star">Concept space</span></div><div class="desc">Gentle Monster's 14-storey brutalist "spaceship" — the breathing giant dachshund, eyewear &amp; Tamburins staged as art, Siedentopf's installation outside. Arrive at the 11:00 opening for the smallest crowds, and <b>book a Nudake Teahouse (5F) table on entry</b> — it's your second coffee, ready by the time you've toured the floors. Free to enter.</div></div></div>
-        <div class="stop"><div class="when">13:30</div><div class="what"><div class="line1"><span class="nm">Lunch in Seongsu</span><span class="badge eat">Lunch</span></div></div></div>
-        <div class="stop"><div class="when">15:30</div><div class="what"><div class="line1"><span class="nm">Garosu-gil (Sinsa)</span><span class="mapnum">15</span><span class="badge">Shop</span></div><div class="desc">Tree-lined boutiques and cafés — an easy late-afternoon browse.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Bossam / Jokbal in Gangnam</span><span class="badge eat">Dinner</span></div><div class="desc">Boiled-pork wraps / braised pork — rich and winter-friendly.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 7</div><div class="dd">27</div><div class="dw">Sunday</div><div class="num">FLEX</div></div>
-      <div class="day-body">
-        <div class="day-theme">Lotte World — or a slow day</div>
-        <div class="day-note">A fun full day at the park, decked for Christmas — or simply rest. Your call on the morning.</div>
-        <div class="stop"><div class="when">11:00</div><div class="what"><div class="line1"><span class="nm">Lotte World (Jamsil)</span><span class="mapnum">14</span><span class="badge star">Family</span></div><div class="desc">Indoor + outdoor amusement park (Magic Island), fully Christmas-themed. A Magic Pass saves the queues.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Dinner in Jamsil, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 8</div><div class="dd">28</div><div class="dw">Monday</div><div class="num">FLEX</div></div>
-      <div class="day-body">
-        <div class="day-theme">Hanok cafés &amp; gift hunting</div>
-        <div class="day-note">An easy, charming day — old lanes and the gifts to take home.</div>
-        <div class="stop"><div class="when">10:30</div><div class="what"><div class="line1"><span class="nm">Ikseon-dong hanok alleys</span><span class="mapnum">7</span><span class="badge eat">Coffee</span></div><div class="desc">Restored 1920s lanes packed with little cafés — a long, slow morning coffee.</div></div></div>
-        <div class="stop"><div class="when">13:00</div><div class="what"><div class="line1"><span class="nm">Insadong — gifts &amp; tea</span><span class="mapnum">6</span><span class="badge">Shop</span></div><div class="desc">Hanji paper, najeonchilgi lacquerware, a traditional teahouse. Lunch nearby.</div></div></div>
-        <div class="stop"><div class="when">16:00</div><div class="what"><div class="line1"><span class="nm">Optional: Lotte Outlets, Seoul Station</span><span class="mapnum">18</span><span class="badge">Shop</span></div><div class="desc">If you're in an outlet mood — easy to reach, central.</div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Dinner, then home</span><span class="badge eat">Dinner</span></div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 9</div><div class="dd">29</div><div class="dw">Tuesday</div><div class="num">BUFFER</div></div>
-      <div class="day-body">
-        <div class="day-theme">Open day — favourites &amp; the snow card</div>
-        <div class="day-note">Deliberately loose. (Gyeongbokgung closed Tue.) Revisit what you loved, or shop Dongdaemun by day.</div>
-        <div class="stop"><div class="when">all day</div><div class="what"><div class="line1"><span class="nm">Your pick</span><span class="badge">Flex</span></div><div class="desc">Dongdaemun daytime shopping (Doota &amp; the towers), a COEX return, or a second run at any mall.</div></div></div>
-        <div class="stop"><div class="when">note</div><div class="what"><div class="line1"><span class="nm">Snow contingency</span><span class="mapnum">3</span><span class="badge star">If it snows</span></div><div class="desc">If snow lands on any morning, drop the plan and go to <b>Gyeongbokgung by day</b> — the frozen Gyeonghoeru pond and snow-covered courtyards are the postcard. This buffer day absorbs the swap.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 10</div><div class="dd">30</div><div class="dw">Wednesday</div><div class="num">BUFFER</div></div>
-      <div class="day-body">
-        <div class="day-theme">Last favourites &amp; a BBQ farewell</div>
-        <div class="day-note">Final gifts, a beloved café, and the best grill you've found.</div>
-        <div class="stop"><div class="when">11:00</div><div class="what"><div class="line1"><span class="nm">Revisit a favourite quarter</span><span class="badge">Wander</span></div><div class="desc">Whatever earned a second look — Myeongdong, a mall, a café district.</div></div></div>
-        <div class="stop"><div class="when">15:00</div><div class="what"><div class="line1"><span class="nm">Mid-afternoon coffee</span><span class="badge eat">Coffee</span></div></div></div>
-        <div class="stop"><div class="when">18:30</div><div class="what"><div class="line1"><span class="nm">Korean BBQ farewell dinner</span><span class="badge eat">Dinner</span></div><div class="desc">Go out on hanwoo. Home by nine.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 11</div><div class="dd">31</div><div class="dw">Thursday</div></div>
-      <div class="day-body">
-        <div class="day-theme">New Year's Eve — kept gentle</div>
-        <div class="day-note">An 11:55 flight tomorrow means an early start — so tonight stays calm.</div>
-        <div class="stop"><div class="when">daytime</div><div class="what"><div class="line1"><span class="nm">Easy favourites &amp; pack</span><span class="badge">Free</span></div><div class="desc">A relaxed café, last bits, bags ready.</div></div></div>
-        <div class="stop"><div class="when">18:00</div><div class="what"><div class="line1"><span class="nm">Early festive dinner near the hotel</span><span class="badge eat">Dinner</span></div></div></div>
-        <div class="stop"><div class="when">20:00</div><div class="what"><div class="line1"><span class="nm">DDP &amp; Dongdaemun, one last time</span><span class="mapnum">2</span><span class="badge">Night</span></div><div class="desc">A final lit-up stroll by the hotel — then an early night. The flight comes before the countdown.</div></div></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-rail"><div class="dn">Day 12</div><div class="dd">01</div><div class="dw">Friday</div></div>
-      <div class="day-body">
-        <div class="day-theme">Departure → Vienna → Palma</div>
-        <div class="day-note">Happy New Year, in transit.</div>
-        <div class="stop"><div class="when">07:45</div><div class="what"><div class="line1"><span class="nm">Novotel → Incheon</span><span class="mapnum">H</span><span class="badge">Transfer</span></div><div class="desc">Leave by ~07:45 for the 11:55 departure.</div></div></div>
-        <div class="stop"><div class="when">11:55</div><div class="what"><div class="line1"><span class="nm">Korean Air ICN → VIE (direct)</span><span class="badge">Flight</span></div><div class="desc">Into Vienna 16:55 → overnight at the Moxy Vienna Airport → Palma on the 2nd.</div></div></div>
-      </div>
-    </div>
-
-  </div><!-- /days -->
-
-  <div class="wrap">
     <div class="panel">
-      <h3>Seoul <span class="hl">— good to know</span></h3>
+      <h3>Seúl — <span class="hl">apuntes</span></h3>
       <ul>
-        <li><b class="hl">Palace days are fixed by closures:</b> Gyeongbokgung shuts Tuesdays (Dec 22, 29), Deoksugung shuts Mondays (Dec 28). The plan already routes around them.</li>
-        <li><b class="hl">"Palace at night" = Deoksugung.</b> Gyeongbokgung's lit-in-darkness night opening only runs in spring and autumn — in December it's a dusk visit (last entry 16:00). Deoksugung carries the after-dark palace.</li>
-        <li><b class="hl">Two buffer days (29 &amp; 30)</b> are deliberate — you've seen Seoul twice, so there's room to rest, repeat, or absorb a snow-day swap.</li>
-        <li><b class="hl">Food steering:</b> everything here is meat-forward. Skip the obvious seafood (jjamppong, haemul-anything, raw fish); BBQ, samgyetang, bossam/jokbal, chimaek, and beef-bone soups are your safe, warming lane.</li>
-        <li><b class="hl">NYE is intentionally quiet</b> — the early Jan 1 flight wins over the countdown.</li>
+        <li><b class="hl">"Palacio de noche" = Deoksugung.</b> La apertura nocturna iluminada de Gyeongbokgung es solo en primavera y otoño; en diciembre, visita al atardecer (última entrada 16:00).</li>
+        <li><b class="hl">N Seoul Tower</b> es la excepción nocturna acordada — la única noche que pasa de las nueve.</li>
+        <li><b class="hl">Nochevieja tranquila:</b> el vuelo del 1 de enero sale a las 11:55 — salir del hotel hacia las 7:45.</li>
+        <li><b class="hl">Comida segura:</b> BBQ coreano, samgyetang, bossam/jokbal, chimaek, sopas de ternera. Evitar jjamppong y todo lo "haemul".</li>
       </ul>
     </div>
   </div>
@@ -581,13 +335,14 @@
 <footer>
   <div class="wrap">
     <div>
-      <h4>Two Cities, One Winter</h4>
-      <p class="gold">Vienna · Seoul — December 2026</p>
-      <p>Pins and times are a working draft. Market hours, the Spanish Riding School showtime, and December Christmas-event dates get confirmed once the 2026 schedules publish in autumn.</p>
+      <h4>Dos ciudades, un invierno</h4>
+      <p class="gold">Viena · Seúl — diciembre 2026</p>
+      <p>Horarios y fechas de eventos navideños se confirman cuando se publiquen los calendarios de 2026. Lo marcado como visitado se guarda en este dispositivo.</p>
     </div>
     <div>
-      <p>Hotels: Courtyard Prater/Messe &middot; Novotel Ambassador Dongdaemun &middot; Moxy Vienna Airport (1 Jan) &middot; Palma TBD.</p>
-      <p>Maps © OpenStreetMap contributors, © CARTO.</p>
+      <p>Hoteles: Courtyard Prater/Messe · Novotel Ambassador Dongdaemun · Moxy Vienna Airport (1 ene).</p>
+      <p>Mapas © OpenStreetMap, © CARTO.</p>
+      <button class="reset" id="btn-reset">Borrar todos los visitados</button>
     </div>
   </div>
 </footer>
@@ -595,82 +350,204 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 (function(){
-  function pinIcon(num, cls){
-    return L.divIcon({
-      className:'',
-      html:'<div class="pin '+cls+'"><span>'+num+'</span></div>',
-      iconSize:[26,26], iconAnchor:[13,24], popupAnchor:[0,-22]
+  'use strict';
+
+  /* ============ DATOS ============ */
+  /* cat: mercado | palacio | museo | cafe | mall | compras | luces | rest | hotel */
+  var CAT_NAMES = {mercado:'Mercado navideño',palacio:'Palacios y monumentos',museo:'Museos',cafe:'Cafés',mall:'Centros comerciales',compras:'Calles y tiendas',luces:'Luces y vistas',rest:'Restaurantes',hotel:'Hotel'};
+  var CAT_ICONS = {mercado:'ti-christmas-tree',palacio:'ti-building-castle',museo:'ti-building-bank',cafe:'ti-coffee',mall:'ti-building-store',compras:'ti-shopping-bag',luces:'ti-sparkles',rest:'ti-tools-kitchen-2',hotel:'ti-bed'};
+  var CAT_ORDER = ['mercado','palacio','museo','cafe','mall','compras','luces','rest','hotel'];
+
+  var VIENNA = {
+    zones:['Centro histórico (1º)','Ringstrasse y MuseumsQuartier','Karlsplatz y Belvedere','Schönbrunn','Prater y Leopoldstadt','Mariahilf','Donaustadt'],
+    places:[
+      {id:'v-hotel',k:'H',hotel:1,n:'Courtyard Prater/Messe',zone:'Prater y Leopoldstadt',cat:'hotel',time:'Base de operaciones',d:'Sobre la línea U2, junto al Prater.',lat:48.2132222,lng:16.4133823},
+      {id:'v-riesenrad',k:'2',n:'Riesenrad (noria gigante) y Prater',zone:'Prater y Leopoldstadt',cat:'luces',time:'Al atardecer — vistas con las luces encendidas',d:'La noria de 1897 junto al hotel; mercadillo navideño en la base. Abre hasta tarde.',lat:48.2166995,lng:16.3959008},
+      {id:'v-stephans',k:'3',n:'Catedral de San Esteban',zone:'Centro histórico (1º)',cat:'palacio',time:'Mañana (nave abierta 9:00–11:30 entre semana)',d:'El corazón gótico de la ciudad; torre sur y catacumbas con entrada.',lat:48.2084114,lng:16.3734707},
+      {id:'v-central',k:'4',n:'Café Central',zone:'Centro histórico (1º)',cat:'cafe',time:'Media mañana — esperad algo de cola',d:'El icono de columnas. Reabierto tras la reforma de 2026 (confirmar).',lat:48.2104274,lng:16.3654339},
+      {id:'v-hofburg',k:'5',n:'Hofburg — Apartamentos Imperiales y Museo de Sisí',zone:'Centro histórico (1º)',cat:'palacio',time:'Primera hora de la tarde (9:00–18:00)',d:'La residencia de invierno de los Habsburgo; la Colección de Plata incluida.',lat:48.2056578,lng:16.3647803},
+      {id:'v-rathaus',k:'6',n:'Christkindlmarkt del Rathausplatz',zone:'Ringstrasse y MuseumsQuartier',cat:'mercado',time:'Después de las 16:00 — el Ayuntamiento iluminado',d:'El mercado insignia: el corazón luminoso, pistas de patinaje entre los árboles.',lat:48.210569,lng:16.3599297},
+      {id:'v-schonbrunn',k:'7',n:'Palacio de Schönbrunn + mercado',zone:'Schönbrunn',cat:'palacio',time:'Mañana el palacio (desde 8:30); el mercado del patio al salir',d:'Gran Tour de salones + la Gloriette. Jardines gratuitos — mágicos con nieve.',lat:48.1858124,lng:16.3127641},
+      {id:'v-karlsplatz',k:'9',n:'Art Advent de Karlsplatz',zone:'Karlsplatz y Belvedere',cat:'mercado',time:'Después de las 16:00',d:'Mercado artesano y ecológico bajo la cúpula de la Karlskirche — de los más atmosféricos.',lat:48.1985626,lng:16.3716999},
+      {id:'v-khm',k:'10',n:'Kunsthistorisches Museum',zone:'Ringstrasse y MuseumsQuartier',cat:'museo',time:'Mañana; los jueves abre hasta las 21:00',d:'Bruegel y Vermeer en un edificio que es obra de arte en sí.',lat:48.2038016,lng:16.3617874},
+      {id:'v-belvedere',k:'11',n:'Alto Belvedere + mercado',zone:'Karlsplatz y Belvedere',cat:'museo',time:'Museo por la tarde (hasta 18:00); mercado al anochecer',d:'"El Beso" de Klimt; el mercado frente al palacio es el más fotogénico.',lat:48.1914751,lng:16.3809322},
+      {id:'v-demel',k:'12',n:'Demel',zone:'Centro histórico (1º)',cat:'cafe',time:'Media mañana (abre 10:00) — o para llevar, más rápido',d:'El confitero imperial del Kohlmarkt: chocolate caliente y vitrinas de joyería.',lat:48.2085962,lng:16.3672185},
+      {id:'v-goldenes',k:'13',n:'Goldenes Quartier · Kohlmarkt · Graben',zone:'Centro histórico (1º)',cat:'compras',time:'Laborables y sábados 10:00–18:30 (domingos cerrado)',d:'El eje del lujo — relojes y las grandes casas — desembocando en la catedral.',lat:48.2089484,lng:16.3678486},
+      {id:'v-karntner',k:'14',n:'Kärntner Straße',zone:'Centro histórico (1º)',cat:'compras',time:'Laborables y sábados (domingos cerrado)',d:'La espina peatonal hasta la catedral; grandes almacenes Steffl.',lat:48.2043818,lng:16.3705979},
+      {id:'v-mariahilfer',k:'15',n:'Mariahilfer Straße',zone:'Mariahilf',cat:'compras',time:'Laborables y sábados (domingos cerrado)',d:'La calle comercial más larga de Viena, de gama media.',lat:48.1951061,lng:16.3374628},
+      {id:'v-kameel',k:'16',n:'Zum Schwarzen Kameel',zone:'Centro histórico (1º)',cat:'rest',time:'Comida o cena — reservar',d:'Histórico y elegante; canapés y clásicos austríacos (la ensalada de patata es famosa).',lat:48.2100189,lng:16.3682914},
+      {id:'v-spittelberg',k:'17',n:'Mercado de Spittelberg',zone:'Ringstrasse y MuseumsQuartier',cat:'mercado',time:'Después de las 16:00',d:'Callejuelas Biedermeier empedradas, artesanía — el más acogedor y menos turístico.',lat:48.2028268,lng:16.3557957},
+      {id:'v-sacher',k:'18',n:'Café Sacher',zone:'Centro histórico (1º)',cat:'cafe',time:'Media tarde — menos cola que a mediodía',d:'La Sachertorte original junto a la Ópera. Turístico, pero hay que hacerlo una vez.',lat:48.2039459,lng:16.3698418},
+      {id:'v-bitzinger',k:'19',n:'Bitzinger Würstelstand',zone:'Centro histórico (1º)',cat:'rest',time:'Cualquier hora — abre hasta las 4:00',d:'Salchicha gourmet en baguette junto a la Albertina; el bocado rápido perfecto.',lat:48.2040964,lng:16.3685027},
+      {id:'v-riding',k:'20',n:'Escuela Española de Equitación (función)',zone:'Centro histórico (1º)',cat:'palacio',time:'Según función — reservar con mucha antelación',d:'Los lipizzanos en actuación completa en la Hofburg.',lat:48.2076428,lng:16.3661597},
+      {id:'v-amhof',k:'21',n:'Mercados de Am Hof y Freyung',zone:'Centro histórico (1º)',cat:'mercado',time:'Después de las 16:00',d:'Dos mercados tradicionales del casco antiguo a pocos pasos uno del otro.',lat:48.2110848,lng:16.3681599},
+      {id:'v-schwarzenberg',k:'22',n:'Café Schwarzenberg',zone:'Ringstrasse y MuseumsQuartier',cat:'cafe',time:'Media tarde; domingos jazz en directo 11:00–13:00',d:'El café más antiguo del Ring (1861); chocolate "Alt Wiener Art". Aún con clientela vienesa.',lat:48.2017943,lng:16.3738665},
+      {id:'v-figlmuller',k:'23',n:'Figlmüller (Wollzeile)',zone:'Centro histórico (1º)',cat:'rest',time:'Comida o cena — imprescindible reservar',d:'El Wiener Schnitzel del tamaño del plato (cerdo). La ensalada de patata, obligada.',lat:48.2093669,lng:16.3746338},
+      {id:'v-plachutta',k:'24',n:'Plachutta (Wollzeile)',zone:'Centro histórico (1º)',cat:'rest',time:'Cena — reservar',d:'Tafelspitz: el ritual vienés de la carne hervida, del caldo al tuétano. Muy de invierno.',lat:48.207521,lng:16.378672},
+      {id:'v-leopold',k:'25',n:'Museo Leopold',zone:'Ringstrasse y MuseumsQuartier',cat:'museo',time:'Mañana o tarde (10:00–18:00) — cerrado martes',d:'La gran colección de Schiele y Klimt, en el MuseumsQuartier.',lat:48.2026499,lng:16.3591421},
+      {id:'v-donau',k:'26',n:'Westfield Donau Zentrum',zone:'Donaustadt',cat:'mall',time:'Lunes a sábado (9:00–20:00; sáb hasta 18:00) — domingos cerrado',d:'El mayor centro comercial cubierto de Viena — lo más parecido a un mall de Seúl.',lat:48.2420571,lng:16.4359636}
+    ]
+  };
+
+  var SEOUL = {
+    zones:['Jongno — palacios y hanok','Centro — City Hall y Myeongdong','Dongdaemun','Namsan','Seongsu','Gangnam y Sinsa','Jamsil','Yeouido','Seoul Station'],
+    places:[
+      {id:'s-hotel',k:'H',hotel:1,n:'Novotel Ambassador Dongdaemun',zone:'Dongdaemun',cat:'hotel',time:'Base de operaciones',d:'Líneas 2/4/5; el DDP en la puerta.',lat:37.566425,lng:127.004571},
+      {id:'s-ddp',k:'2',n:'Dongdaemun Design Plaza (DDP)',zone:'Dongdaemun',cat:'luces',time:'De noche — iluminado, a 5 min del hotel',d:'Las curvas de Zaha Hadid encendidas. Paseo sin plan, cualquier noche.',lat:37.5665256,lng:127.0092236},
+      {id:'s-gyeongbok',k:'3',n:'Palacio Gyeongbokgung',zone:'Jongno — palacios y hanok',cat:'palacio',time:'Entrar a las 16:00 (última entrada) — atardecer dorado. Cerrado martes. Si nieva: por la mañana',d:'La hora mágica de invierno sobre los patios; cierran a las 17:00, justo al anochecer.',lat:37.579617,lng:126.977041},
+      {id:'s-deoksu',k:'4',n:'Palacio Deoksugung',zone:'Centro — City Hall y Myeongdong',cat:'palacio',time:'De noche, hasta las 21:00 — cerrado lunes',d:'El palacio nocturno de verdad: iluminado, con el paseo del muro de piedra.',lat:37.5658862,lng:126.9749017},
+      {id:'s-onion',k:'5',n:'Café Onion Anguk + Bukchon',zone:'Jongno — palacios y hanok',cat:'cafe',time:'Media mañana; combinar con paseo por Bukchon',d:'Bollería en un hanok restaurado; las callejuelas tradicionales al lado.',lat:37.5776235,lng:126.9865541},
+      {id:'s-insadong',k:'6',n:'Insadong',zone:'Jongno — palacios y hanok',cat:'compras',time:'Mediodía o tarde; casas de té para el descanso',d:'Papel hanji, lacado najeonchilgi, regalos con alma y casas de té tradicionales.',lat:37.5717174,lng:126.9860732},
+      {id:'s-ikseon',k:'7',n:'Callejones hanok de Ikseon-dong',zone:'Jongno — palacios y hanok',cat:'cafe',time:'Media mañana o media tarde',d:'Callejuelas de los años 20 repletas de cafés pequeños y con encanto.',lat:37.5737132,lng:126.9901271},
+      {id:'s-cheonggye',k:'8',n:'Cheonggyecheon — luces de Navidad',zone:'Centro — City Hall y Myeongdong',cat:'luces',time:'Después de las 17:30 — ya de noche',d:'El paseo del arroyo iluminado (Seoul Christmas Festival), junto a Deoksugung.',lat:37.5691015,lng:126.9786692},
+      {id:'s-myeongdong',k:'9',n:'Myeongdong',zone:'Centro — City Hall y Myeongdong',cat:'compras',time:'Tarde-noche — el ambiente sube al anochecer',d:'Cosmética, comida callejera, bullicio navideño.',lat:37.5641885,lng:126.986118},
+      {id:'s-shinsegae',k:'10',n:'Shinsegae (tienda principal)',zone:'Centro — City Hall y Myeongdong',cat:'mall',time:'Compras de día (10:30–20:00); la fachada, otra noche después de las 17:15',d:'Dos visitas: los salones de lujo con calma, y el espectáculo de la fachada iluminada.',lat:37.5609223,lng:126.9811389},
+      {id:'s-nseoul',k:'11',n:'N Seoul Tower (Namsan)',zone:'Namsan',cat:'luces',time:'De noche — la excepción tardía; abierta hasta ~22:30',d:'Teleférico y la panorámica completa de la ciudad iluminada.',lat:37.5511694,lng:126.9882266},
+      {id:'s-coex',k:'12',n:'Starfield COEX Mall',zone:'Gangnam y Sinsa',cat:'mall',time:'Cualquier hora (10:30–22:00); entre semana, menos gente',d:'La Starfield Library, el acuario y decoración navideña por todo el complejo.',lat:37.5118346,lng:127.0597871},
+      {id:'s-lottetower',k:'13',n:'Lotte World Tower y Mall',zone:'Jamsil',cat:'mall',time:'Tarde: subir al Seoul Sky para el atardecer (~17:20); luces de la base después',d:'Avenuel de lujo abajo, el mirador del piso 123 arriba, iluminación navideña en la base.',lat:37.5124641,lng:127.102543},
+      {id:'s-lotteworld',k:'14',n:'Lotte World (parque)',zone:'Jamsil',cat:'luces',time:'Día completo — con Magic Pass para evitar colas',d:'Parque cubierto + Magic Island al aire libre, decorado entero de Navidad.',lat:37.5111158,lng:127.098167},
+      {id:'s-garosu',k:'15',n:'Garosu-gil (Sinsa)',zone:'Gangnam y Sinsa',cat:'compras',time:'Tarde',d:'Boutiques y cafés bajo los árboles — paseo de compras tranquilo.',lat:37.5210566,lng:127.0228686},
+      {id:'s-hyundai',k:'16',n:'The Hyundai Seoul',zone:'Yeouido',cat:'mall',time:'Cualquier hora (10:30–20:00); el montaje navideño, imperdible',d:'El mall más nuevo: jardín interior y el despliegue navideño más fotografiado de Seúl.',lat:37.5259162,lng:126.9284926},
+      {id:'s-seongsu',k:'17',n:'Calle de cafés de Seongsu-dong',zone:'Seongsu',cat:'cafe',time:'Media mañana (10:30) — antes de Haus Nowhere',d:'El "Brooklyn" de Seúl: tostadores de especialidad en naves reconvertidas.',lat:37.5446148,lng:127.0580149},
+      {id:'s-outlets',k:'18',n:'Lotte Outlets Seoul Station',zone:'Seoul Station',cat:'mall',time:'Cualquier hora (10:30–21:00)',d:'Outlet céntrico junto a la estación de Seúl — opcional.',lat:37.5544774,lng:126.9706672},
+      {id:'s-hausnowhere',k:'19',n:'Haus Nowhere Seoul',zone:'Seongsu',cat:'compras',time:'A las 11:00 en punto (apertura) — reservar mesa en Nudake (5ª pl.) nada más entrar',d:'La "nave espacial" brutalista de 14 plantas de Gentle Monster: el teckel gigante que respira, Tamburins como instalación, tetería Nudake. Entrada gratuita.',lat:37.5380654,lng:127.0589486}
+    ]
+  };
+
+  /* ============ ESTADO (localStorage) ============ */
+  var LS_KEY = 'vs-visitados-v1';
+  var visited;
+  try { visited = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); }
+  catch(e){ visited = new Set(); }
+  function persist(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(Array.from(visited))); }catch(e){} }
+
+  /* ============ MAPAS ============ */
+  var markers = {};                       // id -> {marker, city}
+  function pinHtml(ico, cls){ return '<div class="pin '+cls+'"><i class="ti '+ico+'"></i></div>'; }
+  function pinIcon(p, cityCls, hotelCls){
+    var done = visited.has(p.id) && !p.hotel;
+    var cls = done ? 'pin-done' : (p.hotel ? hotelCls : cityCls);
+    var ico = done ? 'ti-check' : CAT_ICONS[p.cat];
+    return L.divIcon({className:'',html:pinHtml(ico,cls),iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-26]});
+  }
+  function gmaps(p){ return 'https://www.google.com/maps/search/?api=1&query='+p.lat+','+p.lng; }
+  function navUrls(p){
+    var enc = encodeURIComponent(p.n);
+    if(p.id.charAt(0)==='s'){
+      return {
+        app:'nmap://route/public?dlat='+p.lat+'&dlng='+p.lng+'&dname='+enc+'&appname=https%3A%2F%2Fjblanes.github.io',
+        web:'https://map.naver.com/p/directions/-/'+p.lng+','+p.lat+','+enc+'/-/transit'
+      };
+    }
+    return { app:null, web:'https://www.google.com/maps/dir/?api=1&destination='+p.lat+','+p.lng };
+  }
+  function navAnchor(p, cls){
+    return '<a class="'+cls+'" target="_blank" rel="noopener" href="'+navUrls(p).web+'" onclick="return VS.nav(event,\''+p.id+'\')">Cómo llegar ↗</a>';
+  }
+  function popupHtml(p){
+    return '<div class="pop-n">'+p.n+'</div>'
+         + '<div class="pop-t">'+CAT_NAMES[p.cat]+' · '+p.zone+'</div>'
+         + '<div class="pop-d">'+p.time+'</div>'
+         + navAnchor(p,'pop-link');
+  }
+  function buildMap(elId, tiles, data, cityKey, cityCls, hotelCls){
+    var map = L.map(elId,{scrollWheelZoom:false});
+    L.tileLayer(tiles,{attribution:'&copy; OpenStreetMap, &copy; CARTO',maxZoom:19,subdomains:'abcd'}).addTo(map);
+    var pts=[];
+    data.places.forEach(function(p){
+      var m = L.marker([p.lat,p.lng],{icon:pinIcon(p,cityCls,hotelCls)}).addTo(map).bindPopup(popupHtml(p));
+      markers[p.id]={marker:m,p:p,cityCls:cityCls,hotelCls:hotelCls};
+      pts.push([p.lat,p.lng]);
     });
+    map.fitBounds(pts,{padding:[40,40]});
+    return map;
   }
-  function popup(p){
-    return '<div class="pop-n">'+p.n+'</div>'+
-           (p.t?'<div class="pop-t">'+p.t+'</div>':'')+
-           (p.d?'<div class="pop-d">'+p.d+'</div>':'');
+
+  /* ============ LISTADO ============ */
+  var ui = { v:{group:'zone',filter:'all',data:VIENNA,listEl:'list-v',countEl:'count-v'},
+             s:{group:'zone',filter:'all',data:SEOUL, listEl:'list-s',countEl:'count-s'} };
+
+  function groupsFor(cityKey){
+    var st = ui[cityKey];
+    if(st.group==='zone') return st.data.zones.map(function(z){return {key:z,name:z,test:function(p){return p.zone===z}}});
+    return CAT_ORDER.map(function(c){return {key:c,name:CAT_NAMES[c],test:function(p){return p.cat===c}}});
   }
-  function build(id, tiles, attribution, places, cls, hotelCls){
-    var map = L.map(id, {scrollWheelZoom:false, zoomControl:true});
-    L.tileLayer(tiles, {attribution:attribution, maxZoom:19, subdomains:'abcd'}).addTo(map);
-    var group = [];
-    places.forEach(function(p){
-      var icon = pinIcon(p.k, p.hotel?hotelCls:cls);
-      var m = L.marker([p.lat,p.lng], {icon:icon}).addTo(map).bindPopup(popup(p));
-      group.push([p.lat,p.lng]);
+  function passesFilter(p, filter){
+    if(p.hotel) return filter!=='done' || visited.has(p.id);
+    if(filter==='pending') return !visited.has(p.id);
+    if(filter==='done') return visited.has(p.id);
+    return true;
+  }
+  function cardHtml(p){
+    var done = visited.has(p.id);
+    return '<div class="card'+(done?' done':'')+'" id="card-'+p.id+'">'
+      + '<button class="chk" aria-label="Marcar visitado" onclick="VS.toggle(\''+p.id+'\')">✓</button>'
+      + '<div class="body">'
+      +   '<div class="line1"><span class="caticon"><i class="ti '+CAT_ICONS[p.cat]+'"></i></span><span class="nm">'+p.n+'</span>'
+      +   '<span class="chip">'+CAT_NAMES[p.cat]+'</span><span class="zonechip">'+p.zone+'</span></div>'
+      +   '<div class="when">'+p.time+'</div>'
+      +   '<div class="desc">'+p.d+'</div>'
+      +   navAnchor(p,'golink')
+      + '</div></div>';
+  }
+  function render(cityKey){
+    var st = ui[cityKey], html='';
+    groupsFor(cityKey).forEach(function(g){
+      var items = st.data.places.filter(function(p){return g.test(p) && passesFilter(p,st.filter)});
+      if(!items.length) return;
+      var total = st.data.places.filter(g.test), donen = total.filter(function(p){return visited.has(p.id)}).length;
+      html += '<div class="grp"><div class="grp-head"><h3>'+g.name+'</h3>'
+            + '<span class="gcount">'+donen+' de '+total.length+' visitados</span></div>'
+            + items.map(cardHtml).join('') + '</div>';
     });
-    map.fitBounds(group, {padding:[40,40]});
+    document.getElementById(st.listEl).innerHTML = html;
+    var all = st.data.places.filter(function(p){return !p.hotel});
+    var d = all.filter(function(p){return visited.has(p.id)}).length;
+    document.getElementById(st.countEl).textContent = d+' de '+all.length+' lugares visitados';
   }
 
-  var vienna = [
-    {k:'H',hotel:1,n:'Courtyard Prater/Messe',t:'Your hotel',d:'On the U2; steps from the Prater.',lat:48.2132222,lng:16.4133823},
-    {k:'2',n:'Wiener Riesenrad',t:'Sight · Prater',d:'The giant wheel, lit till late, by the hotel.',lat:48.2166995,lng:16.3959008},
-    {k:'3',n:"St. Stephen's Cathedral",t:'Sight',d:'The Gothic heart of the old town.',lat:48.2084114,lng:16.3734707},
-    {k:'4',n:'Café Central',t:'Coffeehouse',d:'The columned icon. Day 2 morning.',lat:48.2104274,lng:16.3654339},
-    {k:'5',n:'Hofburg',t:'Palace',d:'Imperial Apartments & Sisi Museum.',lat:48.2056578,lng:16.3647803},
-    {k:'6',n:'Rathausplatz Christkindlmarkt',t:'Market',d:'The flagship: skating, glowing-heart tree.',lat:48.210569,lng:16.3599297},
-    {k:'7',n:'Schönbrunn Palace & Market',t:'Palace · Market',d:'State rooms, Gloriette, forecourt market.',lat:48.1858124,lng:16.3127641},
-    {k:'9',n:'Karlsplatz Art Advent',t:'Market',d:'Artisan market under Karlskirche.',lat:48.1985626,lng:16.3716999},
-    {k:'10',n:'Kunsthistorisches Museum',t:'Museum',d:'Bruegel & Vermeer. Open late Thu.',lat:48.2038016,lng:16.3617874},
-    {k:'11',n:'Belvedere',t:'Museum · Market',d:"Klimt's The Kiss + the prettiest market.",lat:48.1914751,lng:16.3809322},
-    {k:'12',n:'Demel',t:'Coffeehouse',d:'Imperial confectioner, Kohlmarkt.',lat:48.2085962,lng:16.3672185},
-    {k:'13',n:'Goldenes Quartier · Kohlmarkt',t:'Shopping',d:'The luxury quarter — watches & houses.',lat:48.2089484,lng:16.3678486},
-    {k:'14',n:'Kärntner Straße',t:'Shopping',d:'Pedestrian spine to the cathedral.',lat:48.2043818,lng:16.3705979},
-    {k:'15',n:'Mariahilfer Straße',t:'Shopping',d:"Vienna's longest shopping street.",lat:48.1951061,lng:16.3374628},
-    {k:'16',n:'Zum Schwarzen Kameel',t:'Restaurant',d:'Historic; open-face bites & classics.',lat:48.2100189,lng:16.3682914},
-    {k:'17',n:'Spittelberg Market',t:'Market',d:'Cobblestone lanes, the cosiest market.',lat:48.2028268,lng:16.3557957},
-    {k:'18',n:'Café Sacher',t:'Coffeehouse',d:'The Original Sacher-Torte by the Opera.',lat:48.2039459,lng:16.3698418},
-    {k:'19',n:'Bitzinger Würstelstand',t:'Quick bite',d:'Gourmet sausage by the Albertina.',lat:48.2040964,lng:16.3685027},
-    {k:'20',n:'Spanish Riding School',t:'Show',d:'Lipizzaner performance at the Hofburg.',lat:48.2076428,lng:16.3661597},
-    {k:'21',n:'Am Hof & Freyung',t:'Markets',d:'Two traditional old-town markets.',lat:48.2110848,lng:16.3681599},
-    {k:'22',n:'Café Schwarzenberg',t:'Coffeehouse',d:'Oldest Ringstrasse café; Sunday jazz.',lat:48.2017943,lng:16.3738665},
-    {k:'23',n:'Figlmüller Wollzeile',t:'Restaurant',d:'The plate-sized schnitzel. Reserve.',lat:48.2093669,lng:16.3746338},
-    {k:'24',n:'Plachutta Wollzeile',t:'Restaurant',d:'Tafelspitz — the boiled-beef ritual.',lat:48.207521,lng:16.378672},
-    {k:'25',n:'Leopold Museum',t:'Museum',d:'Schiele & Klimt. Closed Tuesdays.',lat:48.2026499,lng:16.3591421},
-    {k:'26',n:'Westfield Donau Zentrum',t:'Mall',d:'Biggest enclosed mall. Closed Sundays.',lat:48.2420571,lng:16.4359636}
-  ];
+  /* ============ INTERACCIÓN ============ */
+  window.VS = {
+    nav: function(ev, id){
+      var mk = markers[id]; if(!mk) return true;
+      var u = navUrls(mk.p);
+      if(!u.app) return true;                    /* Viena: seguir el href normal (Google) */
+      ev.preventDefault();
+      setTimeout(function(){
+        if(!document.hidden) window.location.href = u.web;  /* la app no se abrió → web */
+      }, 1200);
+      window.location.href = u.app;              /* intento de abrir Naver Map */
+      return false;
+    },
+    toggle: function(id){
+      if(visited.has(id)) visited.delete(id); else visited.add(id);
+      persist();
+      var mk = markers[id];
+      if(mk) mk.marker.setIcon(pinIcon(mk.p, mk.cityCls, mk.hotelCls));
+      render('v'); render('s');
+    }
+  };
+  document.querySelectorAll('.seg').forEach(function(seg){
+    seg.addEventListener('click',function(ev){
+      var btn = ev.target.closest('button'); if(!btn) return;
+      seg.querySelectorAll('button').forEach(function(b){b.classList.remove('on')});
+      btn.classList.add('on');
+      ui[seg.dataset.city][seg.dataset.role==='group'?'group':'filter'] = btn.dataset.val;
+      render(seg.dataset.city);
+    });
+  });
+  document.getElementById('btn-reset').addEventListener('click',function(){
+    if(!confirm('¿Borrar todas las marcas de visitado?')) return;
+    visited.clear(); persist();
+    Object.keys(markers).forEach(function(id){
+      var mk=markers[id]; mk.marker.setIcon(pinIcon(mk.p,mk.cityCls,mk.hotelCls));
+    });
+    render('v'); render('s');
+  });
 
-  var seoul = [
-    {k:'H',hotel:1,n:'Novotel Ambassador Dongdaemun',t:'Your hotel',d:'Lines 2/4/5; DDP on the doorstep.',lat:37.566425,lng:127.004571},
-    {k:'2',n:'Dongdaemun Design Plaza',t:'Night',d:'Zaha Hadid curves, lit after dark.',lat:37.5665256,lng:127.0092236},
-    {k:'3',n:'Gyeongbokgung Palace',t:'Palace · day',d:'Dusk visit; the snow-day star. Closed Tue.',lat:37.579617,lng:126.977041},
-    {k:'4',n:'Deoksugung Palace',t:'Palace · night',d:'Open to 21:00, lit. Closed Mon.',lat:37.5658862,lng:126.9749017},
-    {k:'5',n:'Café Onion Anguk / Bukchon',t:'Coffee · wander',d:'Hanok café + the hanok village.',lat:37.5776235,lng:126.9865541},
-    {k:'6',n:'Insadong',t:'Gifts · tea',d:'Hanji, najeonchilgi, teahouses.',lat:37.5717174,lng:126.9860732},
-    {k:'7',n:'Ikseon-dong Hanok Alleys',t:'Cafés',d:'1920s lanes full of little cafés.',lat:37.5737132,lng:126.9901271},
-    {k:'8',n:'Cheonggyecheon',t:'Christmas lights',d:'Illuminated stream walk.',lat:37.5691015,lng:126.9786692},
-    {k:'9',n:'Myeongdong',t:'Shopping',d:'Cosmetics, street food, festive buzz.',lat:37.5641885,lng:126.986118},
-    {k:'10',n:'Shinsegae Main Store',t:'Shop + facade',d:'Day shopping; night Christmas facade show.',lat:37.5609223,lng:126.9811389},
-    {k:'11',n:'N Seoul Tower',t:'View · late',d:'Cable car up; the Christmas Eve late night.',lat:37.5511694,lng:126.9882266},
-    {k:'12',n:'Starfield COEX Mall',t:'Mall',d:'Starfield Library, aquarium, Christmas decor.',lat:37.5118346,lng:127.0597871},
-    {k:'13',n:'Lotte World Tower & Mall',t:'Mall · view',d:'Seoul Sky, Avenuel, tower illumination.',lat:37.5124641,lng:127.102543},
-    {k:'14',n:'Lotte World',t:'Theme park',d:'Indoor + outdoor, Christmas-themed.',lat:37.5111158,lng:127.098167},
-    {k:'15',n:'Garosu-gil',t:'Shopping',d:'Tree-lined Sinsa boutiques & cafés.',lat:37.5210566,lng:127.0228686},
-    {k:'16',n:'The Hyundai Seoul',t:'Mall',d:'Indoor garden; biggest Christmas display.',lat:37.5259162,lng:126.9284926},
-    {k:'17',n:'Seongsu-dong Café Street',t:'Coffee',d:"Seoul's 'Brooklyn' — warehouse roasters.",lat:37.5446148,lng:127.0580149},
-    {k:'18',n:'Lotte Outlets Seoul Station',t:'Outlet',d:'Central outlet shopping (optional).',lat:37.5544774,lng:126.9706672},
-    {k:'19',n:'Haus Nowhere Seoul',t:'Concept space',d:"Gentle Monster's 14-storey spaceship; Nudake Teahouse on 5F. Opens 11:00.",lat:37.5380654,lng:127.0589486}
-  ];
-
-  var carto = '&copy; OpenStreetMap, &copy; CARTO';
-  build('map-vienna','https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',carto,vienna,'pin-v','pin-hotel');
-  build('map-seoul','https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',carto,seoul,'pin-s','pin-hotel-s');
+  /* ============ ARRANQUE ============ */
+  buildMap('map-vienna','https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',VIENNA,'v','pin-v','pin-hotel');
+  buildMap('map-seoul','https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',SEOUL,'s','pin-s','pin-hotel-s');
+  render('v'); render('s');
 })();
 </script>
