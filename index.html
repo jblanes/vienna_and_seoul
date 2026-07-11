@@ -63,7 +63,14 @@
   .flt .c{font-size:10.5px;color:#8f8a72;margin-top:3px}
 
   /* ---------- CIUDAD ---------- */
-  .city-head{position:sticky;top:0;z-index:600;padding:13px 0;backdrop-filter:saturate(1.1) blur(4px)}
+  .city-head{position:relative;padding:13px 0;backdrop-filter:saturate(1.1) blur(4px)}
+  .cityswitch{position:sticky;top:0;z-index:1200;background:#0c0f17;padding:10px 16px;display:flex;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08)}
+  .seg2{position:relative;display:inline-flex;width:min(360px,90vw);background:#1a1f2e;border-radius:999px;padding:4px}
+  .seg2-ind{position:absolute;top:4px;left:4px;width:calc(50% - 4px);height:calc(100% - 8px);border-radius:999px;background:var(--v-green);transition:transform .28s cubic-bezier(.4,0,.2,1),background .28s}
+  .seg2[data-active="s"] .seg2-ind{transform:translateX(100%);background:var(--s-red)}
+  .seg2-btn{position:relative;z-index:1;flex:1;padding:9px 0;border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:15px;letter-spacing:.02em;color:#8b93a7;transition:color .2s}
+  .seg2-btn.on{color:#fff}
+  .city-hidden{display:none}
   .seoul{background:#0c0f17;color:var(--s-cream)}
   .vienna .city-head{background:linear-gradient(180deg,rgba(30,61,43,.97),rgba(30,61,43,.92));color:#f4eedf;border-bottom:1px solid rgba(216,189,124,.4)}
   .seoul  .city-head{background:linear-gradient(180deg,rgba(13,16,26,.97),rgba(13,16,26,.93));color:var(--s-cream);border-bottom:1px solid var(--s-line)}
@@ -213,6 +220,15 @@
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 
+<!-- ============ SELECTOR DE CIUDAD ============ -->
+<div class="cityswitch">
+  <div class="seg2" data-active="v">
+    <span class="seg2-ind"></span>
+    <button class="seg2-btn on" data-city="v">Viena</button>
+    <button class="seg2-btn" data-city="s">Seúl</button>
+  </div>
+</div>
+
 <!-- ============ VIENA ============ -->
 <section class="city vienna" id="viena">
   <div class="city-head">
@@ -262,7 +278,7 @@
 </section>
 
 <!-- ============ SEÚL ============ -->
-<section class="city seoul" id="seul">
+<section class="city seoul city-hidden" id="seul">
   <div class="city-head">
     <div class="wrap">
       <h2>Seúl · <span class="accent">21 dic – 1 ene</span></h2>
@@ -402,7 +418,6 @@
       {id:'s-hanyakbang',k:'Hy',maybe:1,n:'Coffee Hanyakbang',kn:'커피한약방',zone:'Centro — City Hall y Myeongdong',cat:'cafe',time:'10:00–22:00 (sáb desde 11:00, dom 11:00–20:00) — escondido en un callejón de Euljiro',d:'Café en penumbra, madera vieja y aire de otra época, oculto en un callejón. Buen café de filtro y repostería (el butter tteok, curioso). Se va más por la atmósfera que por el café. 4,5 estrellas.',lat:37.5665301,lng:126.9885936},
       {id:'s-layered',k:'Ly',n:'Cafe Layered (Bukchon)',kn:'레이어드 북촌',zone:'Jongno — palacios y hanok',cat:'cafe',time:'8:00–22:00 (sáb-dom desde 10:00) — en Bukchon',d:'Panadería-café famosa por sus scones (probad el original antes que los rellenos), en un edificio que mezcla hanok y estilo británico. Muy mono y fotogénico, pero pequeño y con cola en horas punta.',lat:37.5776998,lng:126.9859145},
       {id:'s-nudake',k:'Nd',n:'NUDAKE Haus Dosan',kn:'누데이크 하우스 도산',zone:'Gangnam y Sinsa',cat:'cafe',time:'Todos los días 11:00–21:00 — en el Haus Dosan de Gentle Monster',d:'Repostería de vanguardia: el croissant negro "Peak", tartas que parecen esculturas, presentación artística. En el flagship Haus Dosan (Gangnam), lleno de instalaciones de arte. Distinto del Nudake de Haus Nowhere. Algo caro, y se agota pronto.',lat:37.5254165,lng:127.0356387},
-      {id:'s-tosokchon',k:'Ts',n:'Tosokchon Samgyetang',kn:'토속촌 삼계탕',zone:'Jongno — palacios y hanok',cat:'rest',time:'Todos los días 10:00–22:00 — pegado a Gyeongbokgung',d:'La institución del samgyetang (pollo al ginseng relleno de arroz, dátiles y ginkgo): el caldo perfecto para un mediodía de −5 °C, en un edificio tradicional. Servicio rápido pese al gentío. El plato es de pollo — ideal para vosotros; ignorad la tortita de marisco de la carta.',lat:37.5777786,lng:126.9715909},
       {id:'s-ddp',night:1,k:'2',n:'Dongdaemun Design Plaza (DDP)',kn:'동대문디자인플라자',zone:'Dongdaemun',cat:'luces',time:'De noche, cualquier día — y el 31: cuenta atrás de fin de año desde las ~23:00',d:'Las curvas de Zaha Hadid encendidas, a 5 min del hotel. En Nochevieja: espectáculo en la fachada multimedia, fuegos artificiales a medianoche y DJ (Seoul Winter Festa). Fuegos, cama a las 00:30, aeropuerto a las 7:45.',lat:37.5665256,lng:127.0092236},
       {id:'s-gyeongbok',k:'3',n:'Palacio Gyeongbokgung',kn:'경복궁',zone:'Jongno — palacios y hanok',cat:'palacio',time:'Entrar a las 16:00 (última entrada) — atardecer dorado. Cerrado martes. Si nieva: por la mañana',d:'La hora mágica de invierno sobre los patios; cierran a las 17:00, justo al anochecer.',lat:37.579617,lng:126.977041},
       {id:'s-deoksu',night:1,k:'4',n:'Palacio Deoksugung',kn:'덕수궁',zone:'Centro — City Hall y Myeongdong',cat:'palacio',time:'De noche, hasta las 21:00 — cerrado lunes',d:'El palacio nocturno de verdad: iluminado, con el paseo del muro de piedra.',lat:37.5658862,lng:126.9749017},
@@ -500,6 +515,7 @@
       if(!p.nofit) pts.push([p.lat,p.lng]);
     });
     map.fitBounds(pts,{padding:[40,40]});
+    map._fitPts = pts;
     return map;
   }
 
@@ -568,6 +584,7 @@
     focus: function(id){
       var mk = markers[id]; if(!mk) return;
       var key = id.charAt(0)==='v' ? 'v' : 's';
+      showCity(key);                              /* asegura que la ciudad del pin está visible */
       var map = maps[key];
       var elId = key==='v' ? 'map-vienna' : 'map-seoul';
       document.getElementById(elId).scrollIntoView({behavior:'smooth',block:'start'});
@@ -623,6 +640,26 @@
   /* ============ ARRANQUE ============ */
   maps.v = buildMap('map-vienna','https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',VIENNA,'v','pin-v','pin-hotel');
   maps.s = buildMap('map-seoul','https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',SEOUL,'s','pin-s','pin-hotel-s');
+
+  /* --- Selector de ciudad: muestra una, oculta la otra, y recompone el mapa --- */
+  function showCity(key){
+    document.querySelector('.city.vienna').classList.toggle('city-hidden', key!=='v');
+    document.querySelector('.city.seoul').classList.toggle('city-hidden', key!=='s');
+    var seg = document.querySelector('.seg2');
+    seg.setAttribute('data-active', key);
+    seg.querySelectorAll('.seg2-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.city===key); });
+    var map = maps[key];
+    if(map){                                     /* el mapa oculto nace con tamaño 0: reajustar */
+      setTimeout(function(){
+        map.invalidateSize();
+        if(map._fitPts && map._fitPts.length) map.fitBounds(map._fitPts,{padding:[40,40]});
+      }, 30);
+    }
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.seg2-btn').forEach(function(b){
+    b.addEventListener('click',function(){ showCity(b.dataset.city); });
+  });
   render('v'); render('s');
 })();
 </script>
