@@ -68,21 +68,16 @@
   /* app instalada: env() no es fiable en iOS → barra fija arriba */
   .pwa .cityswitch{padding-top:max(env(safe-area-inset-top),56px)}
   @media (display-mode: standalone){ .cityswitch{padding-top:max(env(safe-area-inset-top),56px)} }
-  .seg2{position:relative;display:inline-flex;width:min(340px,88vw);background:#1a1f2e;border-radius:999px;padding:3px}
+  .seg2{position:relative;display:inline-flex;flex:0 1 300px;background:#1a1f2e;border-radius:999px;padding:3px}
+  .filterbtn-top{position:relative;flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:999px;border:1px solid #2a2f3c;background:#1a1f2e;color:#e9ecf2;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}
+  .filterbtn-top i{font-size:16px}
+  .filterbtn-top .fdot{width:8px;height:8px;border-radius:50%;background:#e0483d;display:none}
+  .filterbtn-top.active .fdot{display:inline-block}
   .seg2-ind{position:absolute;top:3px;left:3px;width:calc(50% - 3px);height:calc(100% - 6px);border-radius:999px;background:var(--v-green);transition:transform .28s cubic-bezier(.4,0,.2,1),background .28s}
   .seg2[data-active="s"] .seg2-ind{transform:translateX(100%);background:var(--s-red)}
   .seg2-btn{position:relative;z-index:1;flex:1;padding:6px 0;border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;letter-spacing:.02em;color:#8b93a7;transition:color .2s}
   .seg2-btn.on{color:#fff}
   .city-hidden{display:none}
-
-  /* --- Barra y botón de filtros --- */
-  .filterbar{display:flex;gap:12px;align-items:center;margin:16px 0 8px;flex-wrap:wrap}
-  .filterbtn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:14px;padding:9px 17px;border-radius:999px;cursor:pointer;border:1px solid}
-  .filterbtn i{font-size:16px}
-  .vienna .filterbtn{border-color:var(--v-line);background:#fff;color:var(--v-green)}
-  .seoul  .filterbtn{border-color:var(--s-line);background:var(--s-ink-2);color:var(--s-cream)}
-  .filterbtn .fdot{width:8px;height:8px;border-radius:50%;background:#e0483d;display:none}
-  .filterbtn.active .fdot{display:inline-block}
 
   /* --- Panel deslizante (drawer) --- */
   .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .25s;z-index:1500}
@@ -104,7 +99,6 @@
   .dcat i{font-size:15px;opacity:.7}
   .dlink{background:none;border:none;color:#7fb0ff;font-size:12px;cursor:pointer;padding:0;font-weight:600}
   .dbtn-dist{width:100%;font-family:inherit;font-weight:600;font-size:14px;padding:13px;border-radius:12px;border:1px solid #2a3550;background:#1a2740;color:#cfe0ff;cursor:pointer}
-  .dbtn-dist.on{background:#173a2a;border-color:#2c6b4a;color:#bff0d2}
   .dhint{font-size:12px;color:#8b93a7;margin-top:8px;line-height:1.45}
   .drawer-foot{display:flex;gap:10px;padding:12px 18px;border-top:1px solid #232834}
   .btn-ghost{background:none;border:1px solid #2a2f3c;color:#c3c9d6;border-radius:11px;padding:12px 18px;font-family:inherit;cursor:pointer}
@@ -270,6 +264,7 @@
     <button class="seg2-btn on" data-city="v">Viena</button>
     <button class="seg2-btn" data-city="s">Seúl</button>
   </div>
+  <button class="filterbtn-top" id="filterbtn-top" aria-label="Filtros y orden"><i class="ti ti-adjustments-horizontal"></i>Filtros<span class="fdot"></span></button>
 </div>
 
 <!-- ============ VIENA ============ -->
@@ -299,11 +294,6 @@
     <div class="mapwrap">
       <div id="map-vienna" class="map"></div>
       <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓. Toca un pin para ver detalles y cómo llegar. La luna dorada = luce después de anochecer.</div>
-    </div>
-
-    <div class="filterbar">
-      <button class="filterbtn" data-city="v"><i class="ti ti-adjustments-horizontal"></i> Filtros y orden <span class="fdot"></span></button>
-      <span class="ctl-label" id="live-v"></span>
     </div>
 
     <div class="list" id="list-v"></div>
@@ -337,11 +327,6 @@
     <div class="mapwrap">
       <div id="map-seoul" class="map"></div>
       <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓. La luna dorada = luce después de anochecer.</div>
-    </div>
-
-    <div class="filterbar">
-      <button class="filterbtn" data-city="s"><i class="ti ti-adjustments-horizontal"></i> Filtros y orden <span class="fdot"></span></button>
-      <span class="ctl-label" id="live-s"></span>
     </div>
 
     <div class="list" id="list-s"></div>
@@ -568,6 +553,7 @@
   }
   var userPos = null;            /* {lat,lng} última ubicación conocida */
   var distById = {};             /* id -> metros, calculado bajo demanda; persiste hasta recalcular */
+  var lastCalcMs = 0;            /* marca de tiempo del último recálculo (0 = nunca) */
   var activeCity = 'v';
   var ui = { v:freshState(VIENNA,'list-v','count-v'), s:freshState(SEOUL,'list-s','count-s') };
 
@@ -634,6 +620,16 @@
     var km=m/1000;
     return (km<10?km.toFixed(1):Math.round(km))+' km';
   }
+  /* Texto del botón de distancias: mismo estilo siempre, solo cambia el rótulo */
+  function recalcLabel(){
+    if(!lastCalcMs) return '📍 Calcular distancias (distancias nunca actualizadas)';
+    var mins = Math.round((Date.now()-lastCalcMs)/60000);
+    var ago;
+    if(mins < 1) ago = 'hace un momento';
+    else if(mins < 60) ago = 'hace '+mins+' min';
+    else ago = 'hace '+Math.floor(mins/60)+' h '+(mins%60)+' min';
+    return '📍 Recalcular distancias (última actualización '+ago+')';
+  }
   function applyMapVisibility(cityKey){
     var st = ui[cityKey], map = maps[cityKey];
     if(!map) return;
@@ -689,10 +685,9 @@
         && st.distFilter==='all' && st.cats.size===catsOf(st.data).length;
   }
   function updateFilterBtn(cityKey){
-    var btn = document.querySelector('.filterbtn[data-city="'+cityKey+'"]');
-    if(btn) btn.classList.toggle('active', !isDefault(ui[cityKey]));
-    var live = document.getElementById('live-'+cityKey);
-    if(live) live.textContent = ui[cityKey].group==='dist' ? 'por distancia' : '';
+    if(cityKey && cityKey!==activeCity) return;   /* el botón es único: refleja la ciudad activa */
+    var btn = document.getElementById('filterbtn-top');
+    if(btn) btn.classList.toggle('active', !isDefault(ui[activeCity]));
   }
 
   /* ============ INTERACCIÓN ============ */
@@ -757,9 +752,8 @@
       + '<div class="dgroup"><div class="dlabel">Categorías <button class="dlink" data-catsel="all">todas</button><button class="dlink" data-catsel="none">ninguna</button></div>'
       +   '<div class="dcats">'+catChecks+'</div></div>'
       + '<div class="dgroup"><div class="dlabel">Ubicación</div>'
-      +   '<button class="dbtn-dist'+(userPos?' on':'')+'" data-role="recalc">'
-      +     (userPos?'✓ Distancias calculadas — recalcular':'📍 Recalcular distancias')+'</button>'
-      +   '<div class="dhint">Calcula tu distancia a cada lugar y la muestra en las descripciones. Se queda guardada; el filtro y el orden por distancia usan este cálculo sin volver a pedir ubicación.</div></div>';
+      +   '<button class="dbtn-dist" data-role="recalc">'+recalcLabel()+'</button>'
+      +   '<div class="dhint">Calcula tu distancia a cada lugar y la muestra en las descripciones. Queda guardada, y el filtro y el orden por distancia la reutilizan sin volver a pedir ubicación. Púlsalo otra vez cuando te muevas para actualizarla.</div></div>';
   }
   function openDrawer(){
     document.getElementById('fcity').textContent = activeCity==='v' ? 'Viena' : 'Seúl';
@@ -805,9 +799,11 @@
     if(cb.checked) st.cats.add(cb.dataset.cat); else st.cats.delete(cb.dataset.cat);
     preview();
   });
-  /* Calcula (una vez) tu distancia a cada lugar y la guarda; el filtro/orden la reutilizan */
+  /* Calcula (bajo demanda) tu distancia a cada lugar y la guarda; el filtro/orden la reutilizan.
+     Se puede volver a pulsar cuando quieras — fuerza una lectura fresca del GPS (maximumAge:0). */
   function recalcDistances(btn){
     if(!navigator.geolocation){ alert('Tu dispositivo no permite geolocalización.'); return; }
+    btn.disabled = true;
     btn.textContent = 'Localizando…';
     navigator.geolocation.getCurrentPosition(function(pos){
       userPos = {lat:pos.coords.latitude, lng:pos.coords.longitude};
@@ -817,19 +813,20 @@
           if(!p.hotel) distById[p.id] = haversine(userPos,{lat:p.lat,lng:p.lng});
         });
       });
-      btn.classList.add('on');
-      btn.textContent = '✓ Distancias calculadas — recalcular';
+      var now = new Date();
+      lastCalcMs = now.getTime();
+      btn.disabled = false;
+      btn.textContent = recalcLabel();
       render('v'); render('s');            /* ambas: distById es global y sale en las descripciones */
       updateApplyCount();
     }, function(err){
-      btn.textContent = userPos ? '✓ Distancias calculadas — recalcular' : '📍 Recalcular distancias';
+      btn.disabled = false;
+      btn.textContent = recalcLabel();
       alert('No pude obtener tu ubicación: '+err.message+'\n(En el iPhone: Ajustes → Safari → Ubicación.)');
-    }, {enableHighAccuracy:true, timeout:12000, maximumAge:60000});
+    }, {enableHighAccuracy:true, timeout:12000, maximumAge:0});
   }
 
-  document.querySelectorAll('.filterbtn').forEach(function(b){
-    b.addEventListener('click', openDrawer);
-  });
+  document.getElementById('filterbtn-top').addEventListener('click', openDrawer);
   document.getElementById('fclose').addEventListener('click', closeDrawer);
   document.getElementById('fapply').addEventListener('click', closeDrawer);
   fbackdrop.addEventListener('click', closeDrawer);
@@ -861,6 +858,7 @@
     var seg = document.querySelector('.seg2');
     seg.setAttribute('data-active', key);
     seg.querySelectorAll('.seg2-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.city===key); });
+    updateFilterBtn(key);
     var map = maps[key];
     if(map){                                     /* el mapa oculto nace con tamaño 0: reajustar */
       setTimeout(function(){
