@@ -64,13 +64,55 @@
 
   /* ---------- CIUDAD ---------- */
   .city-head{position:relative;padding:13px 0;backdrop-filter:saturate(1.1) blur(4px)}
-  .cityswitch{position:sticky;top:0;z-index:1200;background:#0c0f17;padding:calc(10px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));display:flex;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08)}
-  .seg2{position:relative;display:inline-flex;width:min(360px,90vw);background:#1a1f2e;border-radius:999px;padding:4px}
-  .seg2-ind{position:absolute;top:4px;left:4px;width:calc(50% - 4px);height:calc(100% - 8px);border-radius:999px;background:var(--v-green);transition:transform .28s cubic-bezier(.4,0,.2,1),background .28s}
+  .cityswitch{position:sticky;top:0;z-index:1200;background:#0c0f17;padding:calc(6px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 6px max(16px,env(safe-area-inset-left));display:flex;justify-content:center;border-bottom:1px solid rgba(255,255,255,.08)}
+  /* app instalada: env() no es fiable en iOS → barra fija arriba */
+  .pwa .cityswitch{padding-top:max(env(safe-area-inset-top),56px)}
+  @media (display-mode: standalone){ .cityswitch{padding-top:max(env(safe-area-inset-top),56px)} }
+  .seg2{position:relative;display:inline-flex;width:min(340px,88vw);background:#1a1f2e;border-radius:999px;padding:3px}
+  .seg2-ind{position:absolute;top:3px;left:3px;width:calc(50% - 3px);height:calc(100% - 6px);border-radius:999px;background:var(--v-green);transition:transform .28s cubic-bezier(.4,0,.2,1),background .28s}
   .seg2[data-active="s"] .seg2-ind{transform:translateX(100%);background:var(--s-red)}
-  .seg2-btn{position:relative;z-index:1;flex:1;padding:9px 0;border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:15px;letter-spacing:.02em;color:#8b93a7;transition:color .2s}
+  .seg2-btn{position:relative;z-index:1;flex:1;padding:6px 0;border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;letter-spacing:.02em;color:#8b93a7;transition:color .2s}
   .seg2-btn.on{color:#fff}
   .city-hidden{display:none}
+
+  /* --- Barra y botón de filtros --- */
+  .filterbar{display:flex;gap:12px;align-items:center;margin:16px 0 8px;flex-wrap:wrap}
+  .filterbtn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;font-size:14px;padding:9px 17px;border-radius:999px;cursor:pointer;border:1px solid}
+  .filterbtn i{font-size:16px}
+  .vienna .filterbtn{border-color:var(--v-line);background:#fff;color:var(--v-green)}
+  .seoul  .filterbtn{border-color:var(--s-line);background:var(--s-ink-2);color:var(--s-cream)}
+  .filterbtn .fdot{width:8px;height:8px;border-radius:50%;background:#e0483d;display:none}
+  .filterbtn.active .fdot{display:inline-block}
+
+  /* --- Panel deslizante (drawer) --- */
+  .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .25s;z-index:1500}
+  .drawer-backdrop.open{opacity:1;visibility:visible}
+  .drawer{position:fixed;left:0;right:0;bottom:0;z-index:1600;background:#12151d;color:#e9ecf2;border-radius:18px 18px 0 0;transform:translateY(101%);transition:transform .32s cubic-bezier(.4,0,.2,1);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -12px 40px rgba(0,0,0,.5)}
+  .drawer.open{transform:translateY(0)}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 6px}
+  .drawer-head h3{font-size:17px;font-weight:700}
+  .drawer-x{background:none;border:none;color:#9aa3b2;font-size:20px;cursor:pointer;padding:2px 8px;line-height:1}
+  .drawer-body{overflow-y:auto;padding:6px 18px 14px;-webkit-overflow-scrolling:touch}
+  .dgroup{margin:16px 0}
+  .dlabel{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8b93a7;margin-bottom:9px;display:flex;gap:8px;align-items:center}
+  .dseg{display:inline-flex;border:1px solid #2a2f3c;border-radius:999px;overflow:hidden;flex-wrap:wrap}
+  .dseg button{font-family:inherit;font-size:13px;padding:8px 15px;border:none;background:transparent;color:#c3c9d6;cursor:pointer}
+  .dseg button.on{background:#e0483d;color:#fff}
+  .dcats{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px}
+  .dcat{display:flex;align-items:center;gap:8px;font-size:13.5px;cursor:pointer}
+  .dcat input{width:16px;height:16px;accent-color:#e0483d;flex:0 0 auto}
+  .dcat i{font-size:15px;opacity:.7}
+  .dlink{background:none;border:none;color:#7fb0ff;font-size:12px;cursor:pointer;padding:0;font-weight:600}
+  .dbtn-dist{width:100%;font-family:inherit;font-weight:600;font-size:14px;padding:13px;border-radius:12px;border:1px solid #2a3550;background:#1a2740;color:#cfe0ff;cursor:pointer}
+  .dbtn-dist.on{background:#173a2a;border-color:#2c6b4a;color:#bff0d2}
+  .dhint{font-size:12px;color:#8b93a7;margin-top:8px;line-height:1.45}
+  .drawer-foot{display:flex;gap:10px;padding:12px 18px;border-top:1px solid #232834}
+  .btn-ghost{background:none;border:1px solid #2a2f3c;color:#c3c9d6;border-radius:11px;padding:12px 18px;font-family:inherit;cursor:pointer}
+  .btn-primary{flex:1;background:#e0483d;border:none;color:#fff;border-radius:11px;padding:12px;font-family:inherit;font-weight:700;cursor:pointer}
+  .distlead{font-weight:700;color:#1f8a52}
+  .distlead i{font-size:12px}
+  .seoul .distlead{color:#7fe0a8}
+  .grp-note{font-size:12.5px;opacity:.7;padding:2px 2px 10px}
   .seoul{background:#0c0f17;color:var(--s-cream)}
   .vienna .city-head{background:linear-gradient(180deg,rgba(30,61,43,.97),rgba(30,61,43,.92));color:#f4eedf;border-bottom:1px solid rgba(216,189,124,.4)}
   .seoul  .city-head{background:linear-gradient(180deg,rgba(13,16,26,.97),rgba(13,16,26,.93));color:var(--s-cream);border-bottom:1px solid var(--s-line)}
@@ -221,6 +263,7 @@
 </style>
 
 <!-- ============ SELECTOR DE CIUDAD ============ -->
+<script>if(window.navigator.standalone)document.documentElement.classList.add('pwa');</script>
 <div class="cityswitch">
   <div class="seg2" data-active="v">
     <span class="seg2-ind"></span>
@@ -258,19 +301,9 @@
       <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓. Toca un pin para ver detalles y cómo llegar. La luna dorada = luce después de anochecer.</div>
     </div>
 
-    <div class="controls">
-      <span class="ctl-label">Agrupar</span>
-      <div class="seg" data-city="v" data-role="group">
-        <button data-val="zone" class="on">Por zona</button>
-        <button data-val="cat">Por categoría</button>
-      </div>
-      <span class="ctl-label">Mostrar</span>
-      <div class="seg" data-city="v" data-role="filter">
-        <button data-val="all" class="on">Todos</button>
-        <button data-val="pending">Pendientes</button>
-        <button data-val="done">Visitados</button>
-      </div>
-      <label class="chkfilter"><input type="checkbox" data-city="v" data-role="hidemaybe"> Ocultar comodines</label>
+    <div class="filterbar">
+      <button class="filterbtn" data-city="v"><i class="ti ti-adjustments-horizontal"></i> Filtros y orden <span class="fdot"></span></button>
+      <span class="ctl-label" id="live-v"></span>
     </div>
 
     <div class="list" id="list-v"></div>
@@ -306,24 +339,28 @@
       <div class="map-cap">Cada pin muestra el icono de su categoría. Pin dorado = hotel. Los visitados se vuelven grises con un ✓. La luna dorada = luce después de anochecer.</div>
     </div>
 
-    <div class="controls">
-      <span class="ctl-label">Agrupar</span>
-      <div class="seg" data-city="s" data-role="group">
-        <button data-val="zone" class="on">Por zona</button>
-        <button data-val="cat">Por categoría</button>
-      </div>
-      <span class="ctl-label">Mostrar</span>
-      <div class="seg" data-city="s" data-role="filter">
-        <button data-val="all" class="on">Todos</button>
-        <button data-val="pending">Pendientes</button>
-        <button data-val="done">Visitados</button>
-      </div>
-      <label class="chkfilter"><input type="checkbox" data-city="s" data-role="hidemaybe"> Ocultar comodines</label>
+    <div class="filterbar">
+      <button class="filterbtn" data-city="s"><i class="ti ti-adjustments-horizontal"></i> Filtros y orden <span class="fdot"></span></button>
+      <span class="ctl-label" id="live-s"></span>
     </div>
 
     <div class="list" id="list-s"></div>
   </div>
 </section>
+
+<!-- ============ PANEL DE FILTROS ============ -->
+<div class="drawer-backdrop" id="fbackdrop"></div>
+<aside class="drawer" id="fdrawer" aria-label="Filtros">
+  <div class="drawer-head">
+    <h3>Filtros — <span id="fcity">Viena</span></h3>
+    <button class="drawer-x" id="fclose" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="drawer-body" id="fbody"></div>
+  <div class="drawer-foot">
+    <button class="btn-ghost" id="freset">Restablecer</button>
+    <button class="btn-primary" id="fapply">Ver <span id="fcount">0</span> lugares</button>
+  </div>
+</aside>
 
 <!-- ============ VUELOS ============ -->
 <section class="flights">
@@ -520,22 +557,56 @@
   }
 
   /* ============ LISTADO ============ */
-  var ui = { v:{group:'zone',filter:'all',hideMaybe:false,data:VIENNA,listEl:'list-v',countEl:'count-v'},
-             s:{group:'zone',filter:'all',hideMaybe:false,data:SEOUL, listEl:'list-s',countEl:'count-s'} };
+  function freshState(data,listEl,countEl){
+    return {group:'zone',filter:'all',maybeMode:'all',nightMode:'all',distFilter:'all',
+            cats:new Set(catsOf(data)),data:data,listEl:listEl,countEl:countEl};
+  }
+  function catsOf(data){
+    var seen={},out=[];
+    data.places.forEach(function(p){ if(!seen[p.cat]){seen[p.cat]=1;out.push(p.cat);} });
+    return CAT_ORDER.filter(function(c){return seen[c]});
+  }
+  var userPos = null;            /* {lat,lng} última ubicación conocida */
+  var distById = {};             /* id -> metros, calculado bajo demanda; persiste hasta recalcular */
+  var activeCity = 'v';
+  var ui = { v:freshState(VIENNA,'list-v','count-v'), s:freshState(SEOUL,'list-s','count-s') };
 
   function groupsFor(cityKey){
     var st = ui[cityKey];
     if(st.group==='zone') return st.data.zones.map(function(z){return {key:z,name:z,test:function(p){return p.zone===z}}});
     return CAT_ORDER.map(function(c){return {key:c,name:CAT_NAMES[c],test:function(p){return p.cat===c}}});
   }
-  function passesFilter(p, filter){
-    if(p.hotel) return filter!=='done' || visited.has(p.id);
-    if(filter==='pending') return !visited.has(p.id);
-    if(filter==='done') return visited.has(p.id);
+  function passesVisited(p, st){
+    if(st.filter==='pending') return !visited.has(p.id);
+    if(st.filter==='done')    return visited.has(p.id);
+    return true;
+  }
+  function passesFilter(p, st){ return passesVisited(p, st) && passesStructural(p, st); }
+  /* filtro por distancia guardada (sin recalcular). Sin distancia = no pasa filtros específicos */
+  function passesDist(p, st){
+    if(st.distFilter==='all') return true;
+    var dm = distById[p.id];
+    if(dm==null) return false;
+    if(st.distFilter==='u500')  return dm < 500;
+    if(st.distFilter==='u1000') return dm < 1000;
+    if(st.distFilter==='o1000') return dm >= 1000;
+    return true;
+  }
+  /* estructural = todo menos el estado de visitado (para contar "X de Y").
+     El hotel también obedece a estos filtros, incluida su categoría "Hotel". */
+  function passesStructural(p, st){
+    if(st.maybeMode==='only' && !p.maybe) return false;
+    if(st.maybeMode==='hide' && p.maybe) return false;
+    if(st.nightMode==='only' && !p.night) return false;
+    if(st.nightMode==='hide' && p.night) return false;
+    if(!st.cats.has(p.cat)) return false;
+    if(!passesDist(p, st)) return false;
     return true;
   }
   function cardHtml(p){
     var done = visited.has(p.id);
+    var dm = distById[p.id];
+    var distLead = (dm!=null) ? '<b class="distlead"><i class="ti ti-map-pin"></i> A '+fmtDist(dm)+' de ti.</b> ' : '';
     return '<div class="card'+(done?' done':'')+'" id="card-'+p.id+'">'
       + '<button class="chk" aria-label="Marcar visitado" onclick="VS.toggle(\''+p.id+'\')">✓</button>'
       + '<div class="body">'
@@ -546,37 +617,82 @@
       +   (p.maybe?'<span class="maybechip"><i class="ti ti-dice-3"></i>comodín</span>':'')
       +   '<span class="chip">'+CAT_NAMES[p.cat]+'</span><span class="zonechip">'+p.zone+'</span></div>'
       +   '<div class="when">'+p.time+'</div>'
-      +   '<div class="desc">'+p.d+'</div>'
+      +   '<div class="desc">'+distLead+p.d+'</div>'
       +   navAnchor(p,'golink')
       + '</div></div>';
+  }
+  /* Haversine — distancia en metros entre dos {lat,lng} */
+  function haversine(a, b){
+    var R=6371000, toRad=Math.PI/180;
+    var dLat=(b.lat-a.lat)*toRad, dLng=(b.lng-a.lng)*toRad;
+    var la1=a.lat*toRad, la2=b.lat*toRad;
+    var h=Math.pow(Math.sin(dLat/2),2)+Math.cos(la1)*Math.cos(la2)*Math.pow(Math.sin(dLng/2),2);
+    return 2*R*Math.asin(Math.sqrt(h));
+  }
+  function fmtDist(m){
+    if(m<1000) return Math.round(m)+' m';
+    var km=m/1000;
+    return (km<10?km.toFixed(1):Math.round(km))+' km';
   }
   function applyMapVisibility(cityKey){
     var st = ui[cityKey], map = maps[cityKey];
     if(!map) return;
     st.data.places.forEach(function(p){
       var mk = markers[p.id]; if(!mk) return;
-      var hide = st.hideMaybe && p.maybe;
+      var show = passesFilter(p, st);
       var on = map.hasLayer(mk.marker);
-      if(hide && on) map.removeLayer(mk.marker);
-      else if(!hide && !on) mk.marker.addTo(map);
+      if(show && !on) mk.marker.addTo(map);
+      else if(!show && on) map.removeLayer(mk.marker);
     });
   }
   function render(cityKey){
     var st = ui[cityKey], html='';
-    groupsFor(cityKey).forEach(function(g){
-      /* al ocultar comodines, salen también de los totales del grupo */
-      var inGroup = st.data.places.filter(function(p){return g.test(p) && !(st.hideMaybe && p.maybe)});
-      var items = inGroup.filter(function(p){return passesFilter(p,st.filter)});
-      if(!items.length) return;
-      var donen = inGroup.filter(function(p){return visited.has(p.id)}).length;
-      html += '<div class="grp"><div class="grp-head"><h3>'+g.name+'</h3>'
-            + '<span class="gcount">'+donen+' de '+inGroup.length+' visitados</span></div>'
-            + items.map(cardHtml).join('') + '</div>';
-    });
+
+    if(st.group==='dist'){
+      /* agrupar por distancia = lista plana ordenada, más cercanos primero */
+      var arr = st.data.places
+        .filter(function(p){ return !p.hotel && passesFilter(p, st); })
+        .sort(function(a,b){
+          var da=distById[a.id], db=distById[b.id];
+          if(da==null) da=Infinity; if(db==null) db=Infinity;
+          return da-db;
+        });
+      var hint = userPos ? '' : '<div class="grp-note">Pulsa «Recalcular distancias» en Filtros para ordenar por cercanía.</div>';
+      html = '<div class="grp"><div class="grp-head"><h3>Más cercanos primero</h3>'
+           + '<span class="gcount">'+arr.length+' lugares</span></div>'
+           + hint + arr.map(function(p){return cardHtml(p)}).join('') + '</div>';
+      if(!arr.length) html = '<div class="grp"><div class="grp-head"><h3>Sin resultados</h3></div></div>';
+    } else {
+      groupsFor(cityKey).forEach(function(g){
+        var inGroup = st.data.places.filter(function(p){return g.test(p) && passesStructural(p,st)});
+        var items = inGroup.filter(function(p){return passesFilter(p,st)});
+        if(!items.length) return;
+        var donen = inGroup.filter(function(p){return visited.has(p.id)}).length;
+        html += '<div class="grp"><div class="grp-head"><h3>'+g.name+'</h3>'
+              + '<span class="gcount">'+donen+' de '+inGroup.length+' visitados</span></div>'
+              + items.map(function(p){return cardHtml(p)}).join('') + '</div>';
+      });
+    }
     document.getElementById(st.listEl).innerHTML = html;
-    var all = st.data.places.filter(function(p){return !p.hotel && !(st.hideMaybe && p.maybe)});
+
+    var all = st.data.places.filter(function(p){return !p.hotel && passesStructural(p,st)});
     var d = all.filter(function(p){return visited.has(p.id)}).length;
     document.getElementById(st.countEl).textContent = d+' de '+all.length+' lugares visitados';
+    updateFilterBtn(cityKey);
+  }
+  function countVisible(cityKey){
+    var st = ui[cityKey];
+    return st.data.places.filter(function(p){return !p.hotel && passesFilter(p,st)}).length;
+  }
+  function isDefault(st){
+    return st.filter==='all' && st.maybeMode==='all' && st.nightMode==='all'
+        && st.distFilter==='all' && st.cats.size===catsOf(st.data).length;
+  }
+  function updateFilterBtn(cityKey){
+    var btn = document.querySelector('.filterbtn[data-city="'+cityKey+'"]');
+    if(btn) btn.classList.toggle('active', !isDefault(ui[cityKey]));
+    var live = document.getElementById('live-'+cityKey);
+    if(live) live.textContent = ui[cityKey].group==='dist' ? 'por distancia' : '';
   }
 
   /* ============ INTERACCIÓN ============ */
@@ -611,23 +727,118 @@
       render('v'); render('s');
     }
   };
-  document.querySelectorAll('.seg').forEach(function(seg){
-    seg.addEventListener('click',function(ev){
-      var btn = ev.target.closest('button'); if(!btn) return;
+  /* ============ PANEL DE FILTROS (drawer) ============ */
+  var fdrawer = document.getElementById('fdrawer');
+  var fbackdrop = document.getElementById('fbackdrop');
+  var fbody = document.getElementById('fbody');
+
+  function segHtml(role, opts, cur){
+    return '<div class="dseg" data-role="'+role+'">'+opts.map(function(o){
+      return '<button data-val="'+o[0]+'"'+(cur===o[0]?' class="on"':'')+'>'+o[1]+'</button>';
+    }).join('')+'</div>';
+  }
+  function drawerBodyHtml(key){
+    var st = ui[key];
+    var catChecks = catsOf(st.data).map(function(c){
+      return '<label class="dcat"><input type="checkbox" data-cat="'+c+'"'+(st.cats.has(c)?' checked':'')+'>'
+           + '<i class="ti '+CAT_ICONS[c]+'"></i>'+CAT_NAMES[c]+'</label>';
+    }).join('');
+    return ''
+      + '<div class="dgroup"><div class="dlabel">Agrupar</div>'
+      +   segHtml('group',[['zone','Localización'],['cat','Categoría'],['dist','Distancia']],st.group)+'</div>'
+      + '<div class="dgroup"><div class="dlabel">Visitados</div>'
+      +   segHtml('filter',[['all','Todos'],['pending','Pendientes'],['done','Visitados']],st.filter)+'</div>'
+      + '<div class="dgroup"><div class="dlabel">Comodines</div>'
+      +   segHtml('maybe',[['all','Todos'],['only','Solo'],['hide','Ocultar']],st.maybeMode)+'</div>'
+      + '<div class="dgroup"><div class="dlabel">Anochecer</div>'
+      +   segHtml('night',[['all','Todos'],['only','Solo'],['hide','Ocultar']],st.nightMode)+'</div>'
+      + '<div class="dgroup"><div class="dlabel">Distancia</div>'
+      +   segHtml('distf',[['all','Todos'],['u500','< 500 m'],['u1000','< 1 km'],['o1000','> 1 km']],st.distFilter)+'</div>'
+      + '<div class="dgroup"><div class="dlabel">Categorías <button class="dlink" data-catsel="all">todas</button><button class="dlink" data-catsel="none">ninguna</button></div>'
+      +   '<div class="dcats">'+catChecks+'</div></div>'
+      + '<div class="dgroup"><div class="dlabel">Ubicación</div>'
+      +   '<button class="dbtn-dist'+(userPos?' on':'')+'" data-role="recalc">'
+      +     (userPos?'✓ Distancias calculadas — recalcular':'📍 Recalcular distancias')+'</button>'
+      +   '<div class="dhint">Calcula tu distancia a cada lugar y la muestra en las descripciones. Se queda guardada; el filtro y el orden por distancia usan este cálculo sin volver a pedir ubicación.</div></div>';
+  }
+  function openDrawer(){
+    document.getElementById('fcity').textContent = activeCity==='v' ? 'Viena' : 'Seúl';
+    fbody.innerHTML = drawerBodyHtml(activeCity);
+    updateApplyCount();
+    fbackdrop.classList.add('open');
+    fdrawer.classList.add('open');
+  }
+  function closeDrawer(){
+    fbackdrop.classList.remove('open');
+    fdrawer.classList.remove('open');
+  }
+  function updateApplyCount(){
+    document.getElementById('fcount').textContent = countVisible(activeCity);
+  }
+  function preview(){ render(activeCity); applyMapVisibility(activeCity); updateApplyCount(); }
+
+  fbody.addEventListener('click', function(ev){
+    var st = ui[activeCity];
+    var seg = ev.target.closest('.dseg');
+    var btn = ev.target.closest('button');
+    if(seg && btn){
       seg.querySelectorAll('button').forEach(function(b){b.classList.remove('on')});
       btn.classList.add('on');
-      ui[seg.dataset.city][seg.dataset.role==='group'?'group':'filter'] = btn.dataset.val;
-      render(seg.dataset.city);
-    });
+      var role = seg.dataset.role, val = btn.dataset.val;
+      if(role==='group') st.group=val;
+      else if(role==='filter') st.filter=val;
+      else if(role==='maybe') st.maybeMode=val;
+      else if(role==='night') st.nightMode=val;
+      else if(role==='distf') st.distFilter=val;
+      preview(); return;
+    }
+    if(btn && btn.dataset.catsel){
+      st.cats = btn.dataset.catsel==='all' ? new Set(catsOf(st.data)) : new Set();
+      fbody.querySelectorAll('input[data-cat]').forEach(function(cb){ cb.checked = st.cats.has(cb.dataset.cat); });
+      preview(); return;
+    }
+    if(btn && btn.dataset.role==='recalc'){ recalcDistances(btn); return; }
   });
-  document.querySelectorAll('input[data-role="hidemaybe"]').forEach(function(cb){
-    cb.addEventListener('change',function(){
-      var key = cb.dataset.city;
-      ui[key].hideMaybe = cb.checked;
-      render(key);
-      applyMapVisibility(key);
-    });
+  fbody.addEventListener('change', function(ev){
+    var cb = ev.target.closest('input[data-cat]'); if(!cb) return;
+    var st = ui[activeCity];
+    if(cb.checked) st.cats.add(cb.dataset.cat); else st.cats.delete(cb.dataset.cat);
+    preview();
   });
+  /* Calcula (una vez) tu distancia a cada lugar y la guarda; el filtro/orden la reutilizan */
+  function recalcDistances(btn){
+    if(!navigator.geolocation){ alert('Tu dispositivo no permite geolocalización.'); return; }
+    btn.textContent = 'Localizando…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      userPos = {lat:pos.coords.latitude, lng:pos.coords.longitude};
+      distById = {};
+      [VIENNA, SEOUL].forEach(function(data){
+        data.places.forEach(function(p){
+          if(!p.hotel) distById[p.id] = haversine(userPos,{lat:p.lat,lng:p.lng});
+        });
+      });
+      btn.classList.add('on');
+      btn.textContent = '✓ Distancias calculadas — recalcular';
+      render('v'); render('s');            /* ambas: distById es global y sale en las descripciones */
+      updateApplyCount();
+    }, function(err){
+      btn.textContent = userPos ? '✓ Distancias calculadas — recalcular' : '📍 Recalcular distancias';
+      alert('No pude obtener tu ubicación: '+err.message+'\n(En el iPhone: Ajustes → Safari → Ubicación.)');
+    }, {enableHighAccuracy:true, timeout:12000, maximumAge:60000});
+  }
+
+  document.querySelectorAll('.filterbtn').forEach(function(b){
+    b.addEventListener('click', openDrawer);
+  });
+  document.getElementById('fclose').addEventListener('click', closeDrawer);
+  document.getElementById('fapply').addEventListener('click', closeDrawer);
+  fbackdrop.addEventListener('click', closeDrawer);
+  document.getElementById('freset').addEventListener('click', function(){
+    ui[activeCity] = freshState(ui[activeCity].data, ui[activeCity].listEl, ui[activeCity].countEl);
+    fbody.innerHTML = drawerBodyHtml(activeCity);
+    preview();
+  });
+
   document.getElementById('btn-reset').addEventListener('click',function(){
     if(!confirm('¿Borrar todas las marcas de visitado?')) return;
     visited.clear(); persist();
@@ -643,6 +854,8 @@
 
   /* --- Selector de ciudad: muestra una, oculta la otra, y recompone el mapa --- */
   function showCity(key){
+    activeCity = key;
+    closeDrawer();
     document.querySelector('.city.vienna').classList.toggle('city-hidden', key!=='v');
     document.querySelector('.city.seoul').classList.toggle('city-hidden', key!=='s');
     var seg = document.querySelector('.seg2');
